@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta author="Carson Woods">
+    <title>Logic Flaw</title>
+    <link rel="stylesheet" href="css/main.css">
+
+    <script type="application/javascript">
+
+    //Global Variables
+    var width; //canvas width
+    var height; //canvas height
+    var canvas; //the canvas
+    var ctx;  //the context
+    var currentScene; //leave uninitialized to start from beginning
+    var intervals = []; //sets intervals for later clearing
+
+    //adds event listener on the window load so the system doesn't prematurely try
+    //to load the canvas and context.
+    window.addEventListener('load', eventWindowLoaded, false);
+
+    function eventWindowLoaded() {
+      //sets canvas and context based on the DOM element Canvas
+      canvas = document.getElementById('canvas')
+      ctx = canvas.getContext('2d');
+      width = canvas.width;
+      height = canvas.height;
+    }
+
+    function init() {
+
+
+      //loads the first scene
+      if (currentScene === 1) {
+        sceneOne();
+      } else if (currentScene === 2) {
+        sceneTwo();
+      } else if (currentScene === 3) {
+        sceneThree();
+      } else if (currentScene === 4) {
+        sceneFour();
+      } else if (currentScene === 5) {
+        sceneFive();
+      } else if (currentScene === 6) {
+        sceneSix();
+      } else {
+        sceneOne();
+      }
+
+    }
+
+    function sceneOne() {
+      //sets the current scene
+      currentScene = 1;
+
+      //clears any previous drawings
+      ctx.clearRect(0,0,width,height);
+
+      //sets font and font size for the following text
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
+      ctx.font = "40pt Arial";
+      ctx.fillText("Ad Fraud Prevention", 200, 200);
+      ctx.fillText("An Interactive Demo", 200, 450);
+      var sceneOneTimer = setInterval(function(){
+        fadeIn("Use the arrow keys to continue", 250, 300, 20, width);
+        clearInterval(sceneOneTimer);
+      }, 2000)
+      intervals.push(sceneOneTimer);
+
+      //tests for next scene input key
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key == 39) {
+          intervals.forEach(clearInterval);
+          sceneTwo();
+        }
+
+      }
+
+    }
+
+    //building animation for text fading in
+    function fadeIn(text, x, y, fontSize, textWidth) {
+      var aNumber = 1;
+      var alpha = 0.0;
+      fadeInInterval = setInterval(function () {
+        ctx.clearRect(x, y-fontSize-5, textWidth, fontSize+15); // Clears the canvas
+        ctx.fillStyle = "rgba(0, 0, 0, " + alpha + ")";
+        ctx.font = fontSize + "pt Arial";
+        ctx.fillText(text, x, y);
+        alpha = alpha + 0.05; // increase opacity (fade in)
+
+        if (alpha > 1) {
+          clearInterval(fadeInInterval);
+        }
+      }, 70);
+      intervals.push(fadeInInterval);
+    }
+
+    //text fade out animation
+    function fadeOut(text, x, y, fontSize, textWidth) {
+      var alpha = 1.0;   // full opacity
+      fadeOutInterval = setInterval(function () {
+        ctx.clearRect(x, y-fontSize-5, textWidth, fontSize+15); // Clears the canvas
+        ctx.fillStyle = "rgba(0, 0, 0, " + alpha + ")";
+        ctx.font = fontSize + "pt Arial";
+        ctx.fillText(text, x, y);
+        alpha = alpha - 0.05; // decrease opacity (fade out)
+        if (alpha < 0) {
+          ctx.clearRect(x, y-fontSize-5, textWidth, fontSize+15);
+          clearInterval(fadeOutInterval);
+        }
+      }, 100);
+
+      intervals.push(fadeOutInterval);
+    }
+
+    function lineDraw(startX, startY, endX, endY) {
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(endX, endY);
+      ctx.stroke();
+    }
+
+    //give direction 0 if left and direction 1 if right
+    function lineDrawDirection(startX, startY, endX, endY, direction) {
+      //draws the line
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(endX, endY);
+      ctx.stroke();
+
+      //draws the triangle part of the arrow
+      if (direction == 0) {
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(startX+15, startY-15);
+        ctx.lineTo(startX+15, startY+15);
+        ctx.fill();
+      } else if (direction == 1) {
+        ctx.beginPath();
+        ctx.moveTo(endX, endY);
+        ctx.lineTo(endX-15, startY-15);
+        ctx.lineTo(endX-15, startY+15);
+        ctx.fill();
+      }
+    }
+
+    //this is a long function that I think can be abstracted later but I don't
+    //want to deal with that right now so here it is
+    function moveImage(image, startX, startY, endX, endY, imageWidth, imageHeight) {
+
+      var currentX = startX;
+      var currentY = startY;
+
+      moveTimer = setInterval(function() {
+        //I added +/- 1 because in some cases it wasn't completely clearing the old image
+        ctx.clearRect(currentX-1, currentY-1, imageWidth+1, imageHeight+1);
+        ctx.drawImage(image, currentX, currentY, imageWidth, imageHeight);
+
+        if (endX > currentX) {
+          currentX++;
+        } else if(endX < currentX) {
+          currentX--;
+        }
+
+        if (endY > currentY) {
+          currentY++;
+        } else if(endY < currentY) {
+          currentY--;
+        }
+
+        if (currentX === endX && currentY === endY) {
+          clearInterval(moveTimer);
+        }
+
+      }, 6)
+      intervals.push(moveTimer);
+    }
+
+    //fades in images
+    function imageFadeIn(image, x, y, w, h) {
+      var alpha = 0.0;
+
+      fadeInImageInterval = setInterval(function() {
+        ctx.clearRect(x-1, y-1, w+1, h+1);
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(image, x, y, w, h);
+        alpha += .05;
+
+        if (alpha > 1) {
+          //resets globalAlpha
+          ctx.globalAlpha = 1;
+          clearInterval(fadeInImageInterval);
+        }
+
+      }, 99)
+
+      intervals.push(fadeInImageInterval);
+    }
+
+    function imageFadeOut(image, x, y, w, h) {
+      var alpha = 1.0;
+      ctx.drawImage(image, x, y, w, h);
+      fadeOutImageInterval = setInterval(function() {
+        ctx.clearRect(x-1, y-1, w+1, h+1);
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(image, x, y, w, h);
+        alpha -= .05;
+
+        if (alpha < 0) {
+          ctx.globalAlpha = 1;
+          ctx.clearRect(x-1, y-1, w+1, h+1);
+          clearInterval(fadeOutImageInterval);
+        }
+
+      }, 99)
+
+      intervals.push(fadeOutImageInterval);
+    }
+
+    </script>
+
+  </head>
+
+
+
+
+  <body onLoad="init();">
+  <div id="canvas-div">
+    <canvas id="canvas" width="900" height="600"></canvas>
+  </div>
+  </body>
+  </html>
