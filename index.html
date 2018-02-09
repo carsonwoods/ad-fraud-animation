@@ -217,13 +217,94 @@
             subSection++;
           } else if (subSection === 3) {
             intervals.forEach(clearInterval);
+            fadeIn("Advertisers", 715, 320, 12, 225);
+            fadeIn("Publishers", 715, 480, 12, 225);
+            subSection++;
+          } else if (subSectoin === 4) {
+            intervals.forEach(clearInterval);
+            subSection++;
+          }
+        }
+
+        if (key === 37) {
+          if (subSection === 0) {
+            sceneTwo();
+          } else if (subSection === 1) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(150, 110, width, 80);
+            subSection--;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(140, 205, width, 20);
+            subSection--;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(120, 230, width, 1250);
+            subSection--;
+          } else if (subSection === 4) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(80, 325, width, 40);
+            subSection--;
+          } else if (subSection === 5) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(120, 360, width, 100);
+            subSection--;
+          } else if (subSection === 6) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(550, 510, 400, 50);
+            subSection--;
+          }
+        }
+
+      }
+    }
+
+    function sceneFour() {
+      //sets the current scene
+      currentScene = 4;
+
+      //clears canvas
+      ctx.clearRect(0,0,width,height);
+
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
+      ctx.font = "40pt Arial";
+      ctx.fillText("Online Advertisement Overview", 100, 75);
+
+      //incrementable flag to determine progress through scene
+      var subSection = 0;
+
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key === 39) {
+
+          if (subSection === 0) {
+            intervals.forEach(clearInterval);
+            fadeIn("Parties Involved", 150, 130, 20, width);
+            subSection++;
+          } else if(subSection === 1) {
+            intervals.forEach(clearInterval);
+            fadeIn("Advertisers: entity who would like to advertise their product", 160, 155, 12, width);
+            fadeIn("Publisher: website owners hosting the ad", 160, 180, 12, width);
+            fadeIn("Ad Network: Mediator between publisher and advertiser", 160, 205, 12, width);
+            subSection++;
+          } else if(subSection === 2) {
+            intervals.forEach(clearInterval);
+            fadeIn("Advertisers pay Ad Network", 20, 395, 12, 225);
+            fadeIn("for displaying their ads", 20, 420, 12, 225);
+            fadeIn("Ad Network split revenue generated", 20, 450, 12, 275);
+            fadeIn("by ads with the publisers", 20, 480, 12, 275);
+            ctx.drawImage(overview, 300, 300, 400, 200);
+            subSection++;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
             sceneThree();
           }
         }
 
         if (key === 37) {
           if (subSection === 0) {
-            sceneOne();
+            sceneTwo();
           } else if (subSection === 1) {
             intervals.forEach(clearInterval);
             ctx.clearRect(150, 110, width, 80);
