@@ -213,19 +213,15 @@
             fadeIn("for displaying their ads", 20, 420, 12, 225);
             fadeIn("Ad Network split revenue generated", 20, 450, 12, 275);
             fadeIn("by ads with the publisers", 20, 480, 12, 275);
+            fadeIn("Advertisers", 715, 320, 12, 225);
+            fadeIn("Publishers", 715, 480, 12, 225);
             ctx.drawImage(overview, 300, 300, 400, 200);
             subSection++;
           } else if (subSection === 3) {
             intervals.forEach(clearInterval);
-            fadeIn("Advertisers", 715, 320, 12, 225);
-            fadeIn("Publishers", 715, 480, 12, 225);
-            subSection++;
-          } else if (subSectoin === 4) {
-            intervals.forEach(clearInterval);
-            subSection++;
+            sceneFour();
           }
         }
-
         if (key === 37) {
           if (subSection === 0) {
             sceneTwo();
@@ -235,27 +231,14 @@
             subSection--;
           } else if (subSection === 2) {
             intervals.forEach(clearInterval);
-            ctx.clearRect(140, 205, width, 20);
+            ctx.clearRect(120, 140, width, 400);
             subSection--;
           } else if (subSection === 3) {
+            ctx.clearRect(0, 210, width, 500);
             intervals.forEach(clearInterval);
-            ctx.clearRect(120, 230, width, 1250);
-            subSection--;
-          } else if (subSection === 4) {
-            intervals.forEach(clearInterval);
-            ctx.clearRect(80, 325, width, 40);
-            subSection--;
-          } else if (subSection === 5) {
-            intervals.forEach(clearInterval);
-            ctx.clearRect(120, 360, width, 100);
-            subSection--;
-          } else if (subSection === 6) {
-            intervals.forEach(clearInterval);
-            ctx.clearRect(550, 510, 400, 50);
             subSection--;
           }
         }
-
       }
     }
 
@@ -268,7 +251,7 @@
 
       ctx.fillStyle = "rgba(0, 0, 0, 1)";
       ctx.font = "40pt Arial";
-      ctx.fillText("Online Advertisement Overview", 100, 75);
+      ctx.fillText("Advertisement Revenue Model", 100, 75);
 
       //incrementable flag to determine progress through scene
       var subSection = 0;
