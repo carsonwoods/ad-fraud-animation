@@ -13,11 +13,12 @@
     var height; //canvas height
     var canvas; //the canvas
     var ctx;  //the context
-    var currentScene = 4; //leave uninitialized to start from beginning
+    var currentScene = 6; //leave uninitialized to start from beginning
     var intervals = []; //sets intervals for later clearing
 
     //image variables
     var overview = new Image();
+    var archictecture = new Image();
 
     //adds event listener on the window load so the system doesn't prematurely try
     //to load the canvas and context.
@@ -37,6 +38,7 @@
       //load assets for images from CDN.
       //Note: Local storage is possible but behaves poorly when running from dev console
       overview.src = './assets/overview.png';
+      archictecture.src = './assets/architecture.png';
 
 
 
@@ -53,6 +55,8 @@
         sceneFive();
       } else if (currentScene === 6) {
         sceneSix();
+      } else if (currentScene === 7) {
+        sceneSeven();
       } else {
         sceneOne();
       }
@@ -287,6 +291,169 @@
           } else if (subSection === 2) {
             intervals.forEach(clearInterval);
             ctx.clearRect(0, 140, width, 200);
+            subSection--;
+          }
+        }
+
+      }
+    }
+
+    function sceneFive() {
+      //sets the current scene
+      currentScene = 5;
+
+      //clears canvas
+      ctx.clearRect(0,0,width,height);
+
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
+      ctx.font = "40pt Arial";
+      ctx.fillText("Ad Serving Architecture", 175, 75);
+
+      //incrementable flag to determine progress through scene
+      var subSection = 0;
+
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key === 39) {
+
+          if (subSection === 0) {
+            intervals.forEach(clearInterval);
+            ctx.drawImage(archictecture, 125, 100, 700, 500);
+            subSection++;
+          } else if(subSection === 1) {
+            intervals.forEach(clearInterval);
+            sceneSix();
+            subSection++;
+          }
+        }
+
+        if (key === 37) {
+          if (subSection === 0) {
+            sceneFour();
+          } else if (subSection === 1) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 100, width, height);
+            subSection--;
+          }
+        }
+
+      }
+    }
+
+    function sceneSix() {
+      //sets the current scene
+      currentScene = 6;
+
+      //clears canvas
+      ctx.clearRect(0,0,width,height);
+
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
+      ctx.font = "40pt Arial";
+      ctx.fillText("Ad Replacement Attack", 175, 75);
+
+      //incrementable flag to determine progress through scene
+      var subSection = 0;
+
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key === 39) {
+
+          if(subSection === 0) {
+            intervals.forEach(clearInterval);
+            fadeIn("Attackers are malicious publishers who infected the victim machine", 150, 155, 15, width);
+            fadeIn("with DNS Changer malware", 150, 180, 15, width);
+            subSection++;
+          } else if(subSection === 1) {
+            intervals.forEach(clearInterval);
+            fadeIn("Together with Rogue DNS Servers, the attackers replaced", 150, 220, 15, width);
+            fadeIn("legitimate ads on websites with attacker’s ads", 150, 245, 15, width);
+            subSection++;
+          } else if(subSection === 2) {
+            intervals.forEach(clearInterval);
+            fadeIn("Ad Fraud helped attackers earn 14 million USD over a period of 4 years", 150, 285, 15, width);
+            subSection++;
+          } else if(subSection === 3) {
+            intervals.forEach(clearInterval);
+            sceneSeven();
+          }
+        }
+
+        if (key === 37) {
+          if (subSection === 0) {
+            sceneFive();
+          } else if (subSection === 1) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 100, width, height);
+            subSection--;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 185, width, height);
+            subSection--;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 250, width, height);
+            subSection--;
+          }
+        }
+
+      }
+    }
+
+    function sceneSeven() {
+      //sets the current scene
+      currentScene = 7;
+
+      //clears canvas
+      ctx.clearRect(0,0,width,height);
+
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
+      ctx.font = "40pt Arial";
+      ctx.fillText("Ad Replacement Attack Example", 175, 75);
+
+      //incrementable flag to determine progress through scene
+      var subSection = 0;
+
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key === 39) {
+
+          if(subSection === 0) {
+            intervals.forEach(clearInterval);
+            fadeIn("Attackers are malicious publishers who infected the victim machine", 150, 155, 15, width);
+            fadeIn("with DNS Changer malware", 150, 180, 15, width);
+            subSection++;
+          } else if(subSection === 1) {
+            intervals.forEach(clearInterval);
+            fadeIn("Together with Rogue DNS Servers, the attackers replaced", 150, 220, 15, width);
+            fadeIn("legitimate ads on websites with attacker’s ads", 150, 245, 15, width);
+            subSection++;
+          } else if(subSection === 2) {
+            intervals.forEach(clearInterval);
+            fadeIn("Ad Fraud helped attackers earn 14 million USD over a period of 4 years", 150, 285, 15, width);
+            subSection++;
+          } else if(subSection === 3) {
+            intervals.forEach(clearInterval);
+            sceneSeven();
+          }
+        }
+
+        if (key === 37) {
+          if (subSection === 0) {
+            sceneSix();
+          } else if (subSection === 1) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 100, width, height);
+            subSection--;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 185, width, height);
+            subSection--;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 250, width, height);
             subSection--;
           }
         }
