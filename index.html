@@ -13,12 +13,15 @@
     var height; //canvas height
     var canvas; //the canvas
     var ctx;  //the context
-    var currentScene = 6; //leave uninitialized to start from beginning
+    var currentScene = 7; //leave uninitialized to start from beginning
     var intervals = []; //sets intervals for later clearing
 
     //image variables
     var overview = new Image();
     var archictecture = new Image();
+    var validAdvertisement = new Image();
+    var spoofedAdvertisement = new Image();
+    var arrowImage = new Image();
 
     //adds event listener on the window load so the system doesn't prematurely try
     //to load the canvas and context.
@@ -39,6 +42,9 @@
       //Note: Local storage is possible but behaves poorly when running from dev console
       overview.src = './assets/overview.png';
       archictecture.src = './assets/architecture.png';
+      validAdvertisement.src = './assets/validAdvertisement.png';
+      spoofedAdvertisement.src = './assets/spoofedAdvertisement.png';
+      arrowImage.src = './assets/arrow.png';
 
 
 
@@ -385,6 +391,7 @@
             sceneFive();
           } else if (subSection === 1) {
             intervals.forEach(clearInterval);
+            ctx.drawImage(validAdvertisement, 0, 100, 300, 300);
             ctx.clearRect(0, 100, width, height);
             subSection--;
           } else if (subSection === 2) {
@@ -410,7 +417,7 @@
 
       ctx.fillStyle = "rgba(0, 0, 0, 1)";
       ctx.font = "40pt Arial";
-      ctx.fillText("Ad Replacement Attack Example", 175, 75);
+      ctx.fillText("Ad Replacement Attack Example", 75, 75);
 
       //incrementable flag to determine progress through scene
       var subSection = 0;
@@ -422,19 +429,16 @@
 
           if(subSection === 0) {
             intervals.forEach(clearInterval);
-            fadeIn("Attackers are malicious publishers who infected the victim machine", 150, 155, 15, width);
-            fadeIn("with DNS Changer malware", 150, 180, 15, width);
+            fadeIn("Intended Advertisement", 100, 160, 15, width);
+            ctx.drawImage(validAdvertisement, 50, 175, 300, 300);
             subSection++;
           } else if(subSection === 1) {
             intervals.forEach(clearInterval);
-            fadeIn("Together with Rogue DNS Servers, the attackers replaced", 150, 220, 15, width);
-            fadeIn("legitimate ads on websites with attacker’s ads", 150, 245, 15, width);
+            fadeIn("Fradulant Advertisement", 600, 160, 15, width);
+            ctx.drawImage(arrowImage, 400, 300, 100, 50);
+            ctx.drawImage(spoofedAdvertisement, 550, 175, 300, 300);
             subSection++;
           } else if(subSection === 2) {
-            intervals.forEach(clearInterval);
-            fadeIn("Ad Fraud helped attackers earn 14 million USD over a period of 4 years", 150, 285, 15, width);
-            subSection++;
-          } else if(subSection === 3) {
             intervals.forEach(clearInterval);
             sceneSeven();
           }
