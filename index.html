@@ -502,10 +502,24 @@
           } else if (subSection === 2) {
             intervals.forEach(clearInterval);
             ctx.drawImage(user, 50, 475, 100, 100);
+            ctx.fillText("User", 50, 585);
             ctx.drawImage(webServer, 400, 175, 100, 100);
+            ctx.fillText("Web Server", 400, 290);
             ctx.drawImage(localDNS, 750, 475, 100, 100);
-            lineDrawDirection(160, 550, 740, 550, 1);
-            lineDrawDirection(160, 500, 740, 500, 0);
+            ctx.fillText("Local DNS Server", 730, 580);
+            subSection++;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval)
+            lineDrawDirection(160, 500, 740, 500, 1);
+            fadeIn("1. User’s browser requests for IP address of ebay.com", 200, 485, 12, 400);
+            subSection++;
+          } else if (subSection === 4) {
+            lineDrawDirection(160, 550, 740, 550, 0);
+            fadeIn("2.DNS returns the IP Address to the user 66.135.217.240", 200, 570, 12, 425);
+            subSection++;
+          } else if (subSection === 5) {
+            intervals.forEach(clearInterval);
+
           }
         }
 
