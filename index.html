@@ -510,16 +510,27 @@
             subSection++;
           } else if (subSection === 3) {
             intervals.forEach(clearInterval)
-            lineDrawDirection(160, 500, 740, 500, 1);
+            lineDraw(160, 500, 740, 500);
             fadeIn("1. User’s browser requests for IP address of ebay.com", 200, 485, 12, 400);
             subSection++;
           } else if (subSection === 4) {
-            lineDrawDirection(160, 550, 740, 550, 0);
+            intervals.forEach(clearInterval)
+            lineDraw(160, 550, 740, 550);
             fadeIn("2.DNS returns the IP Address to the user 66.135.217.240", 200, 570, 12, 425);
             subSection++;
           } else if (subSection === 5) {
             intervals.forEach(clearInterval);
-
+            fadeIn("3. User’s browser accesses the website", 50, 200, 12, 290);
+            fadeIn("by sending HTTP request to ", 50, 225, 12, 250);
+            fadeIn("66.135.217.240 Web Server", 50, 250, 12, 250);
+            lineDraw(50, 475, 400, 190);
+            subSection++;
+          } else if (subSection === 6) {
+            intervals.forEach(clearInterval);
+            lineDraw(150, 475, 400, 290);
+            fadeIn("4. Web Server sends HTTP ", 350, 365, 12, 200);
+            fadeIn("response to the User", 350, 390, 12, 200);
+            subSection++;
           }
         }
 
@@ -533,6 +544,30 @@
           } else if (subSection === 2) {
             intervals.forEach(clearInterval);
             ctx.clearRect(160, 120, width, height);
+            subSection--;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 175, width, height);
+            subSection--;
+          } else if (subSection === 4) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(160, 465, 590, 40)
+            subSection--;
+          } else if (subSection === 5) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(160, 520, 590, 40)
+            ctx.clearRect(160, 550, 500, 40)
+            subSection--;
+          } else if (subSection === 6) {
+            intervals.forEach(clearInterval)
+            ctx.clearRect(50, 180, 350, 290);
+            ctx.clearRect(50, 180, 50, 300);
+            subSection--;
+          } else if (subSection === 7) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(290, 289, 300, 180);
+            ctx.clearRect(190, 365, 110, 100);
+            ctx.clearRect(125, 425, 75, 55);
             subSection--;
           }
         }
