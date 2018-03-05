@@ -13,7 +13,7 @@
     var height; //canvas height
     var canvas; //the canvas
     var ctx;  //the context
-    var currentScene = 8; //leave uninitialized to start from beginning
+    var currentScene = 9; //leave uninitialized to start from beginning
     var intervals = []; //sets intervals for later clearing
 
     //image variables
@@ -71,6 +71,8 @@
         sceneSeven();
       } else if (currentScene === 8) {
         sceneEight();
+      } else if (currentScene === 9) {
+        sceneNine();
       } else {
         sceneOne();
       }
@@ -531,6 +533,8 @@
             fadeIn("4. Web Server sends HTTP ", 350, 365, 12, 200);
             fadeIn("response to the User", 350, 390, 12, 200);
             subSection++;
+          } else if (subSection === 7) {
+            sceneNine();
           }
         }
 
@@ -574,6 +578,55 @@
 
       }
     }
+
+    function sceneNine() {
+      //sets the current scene
+      currentScene = 9;
+
+      //clears canvas
+      ctx.clearRect(0,0,width,height);
+
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
+      ctx.font = "40pt Arial";
+      ctx.fillText("DNS Cache Poisoning", 180, 75);
+
+      //incrementable flag to determine progress through scene
+      var subSection = 0;
+
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key === 39) {
+          if(subSection === 0) {
+            intervals.forEach(clearInterval);
+            fadeIn("This is a computer hacking attack where a hacker floods", 125, 125, 20, width);
+            fadeIn("a DNS Cache with fake IP Addresses.", 220, 160, 20, width)
+            subSection++;
+          } else if(subSection === 1) {
+            intervals.forEach(clearInterval);
+            fadeIn("Local DNS Server- Keeps the IP Addresses which user uses frequently. ", 25, 225, 20, width);
+            fadeIn("If user asks IP address of a web server which is not ", 115, 260, 20, width)
+            fadeIn("stored in Local DNS Server, it queries the Internet DNS Server.", 80, 295, 20, width)
+            subSection++;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            fadeIn("Internet DNS Server- It stores all the Web server", 150, 360, 20, width)
+            fadeIn("names and their corresponding IP Address", 180, 390, 20, width)
+            sceneTen();
+          }
+        }
+
+        if (key === 37) {
+          if (subSection === 0) {
+            sceneEight();
+          } else if (subSection === 1) {
+            subSection--;
+          }
+        }
+
+      }
+    }
+
 
     //building animation for text fading in
     function fadeIn(text, x, y, fontSize, textWidth) {
@@ -718,9 +771,6 @@
     </script>
 
   </head>
-
-
-
 
   <body onLoad="init();">
   <div id="canvas-div">
