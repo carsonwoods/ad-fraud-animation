@@ -25,6 +25,8 @@
     var user = new Image();
     var localDNS = new Image();
     var webServer = new Image();
+    var attacker = new Image();
+    var internetDNS = new Image();
 
     //adds event listener on the window load so the system doesn't prematurely try
     //to load the canvas and context.
@@ -51,7 +53,8 @@
       user.src = './assets/user.png';
       localDNS.src = './assets/localDNS.png';
       webServer.src = './assets/webServer.png';
-
+      attacker.src = './assets/attacker.png';
+      internetDNS.src = './assets/internetDNS.png';
 
 
       //loads the first scene
@@ -663,13 +666,52 @@
 
         if (key === 39) {
           if(subSection === 0) {
-
+            intervals.forEach(clearInterval);
+            ctx.drawImage(attacker, 50, 440, 125, 100);
+            ctx.drawImage(localDNS, 750, 440, 125, 100);
+            ctx.font = "15pt Arial";
+            ctx.fillText("Attacker", 70, 590);
+            ctx.fillText("Local DNS", 750, 590);
+            subSection++;
+          } else if (subSection === 1) {
+            intervals.forEach(clearInterval);
+            ctx.drawImage(attacker, 50, 440, 125, 100);
+            ctx.drawImage(localDNS, 750, 440, 125, 100);
+            lineDraw(200, 480, 700, 480);
+            fadeIn("1. Resolve IP address of http://maddox.xmission.com", 225, 460, 13, 450);
+            fadeIn("Step 1: Attacker chooses a website and asks Local DNS server for the IP address", 125, 100, 13, 675);
+            fadeIn("For e.g. http://maddox.xmission.com, hoping that it will query Internet DNS Server.", 125, 125, 13, 675);
+            subSection++;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            ctx.drawImage(attacker, 50, 440, 125, 100);
+            ctx.drawImage(localDNS, 750, 440, 125, 100);
+            ctx.drawImage(internetDNS, 400, 150, 100, 100);
+            ctx.clearRect(200,400,500,150);
+            ctx.clearRect(0, 75, width, 60);
+            ctx.font = "15pt Arial";
+            ctx.fillText("Attacker", 70, 590);
+            ctx.fillText("Local DNS", 750, 590);
+            ctx.fillText("Internet DNS", 390, 290);
+            lineDraw()
+            fadeIn("Step 2: If Local DNS Server will not have the IP Address of the requested website,", 125, 100, 13, 675);
+            fadeIn("Local DNS Server will query Internet DNS Server for the IP Address. ", 125, 125, 13, 675);
+            subSection++;
           }
         }
 
         if (key === 37) {
           if (subSection === 0) {
             sceneNine();
+          } else if (subSection === 1) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,100,width,height);
+            subSection--;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,75,width,150);
+            ctx.clearRect(200,400,500,150);
+            subSection--;
           }
         }
 
