@@ -13,7 +13,7 @@
     var height; //canvas height
     var canvas; //the canvas
     var ctx;  //the context
-    var currentScene = 11; //leave uninitialized to start from beginning
+    var currentScene = 12; //leave uninitialized to start from beginning
     var intervals = []; //sets intervals for later clearing
 
     //image variables
@@ -27,6 +27,8 @@
     var webServer = new Image();
     var attacker = new Image();
     var internetDNS = new Image();
+    var poisonedDNS = new Image();
+    var maliciousWebsite = new Image();
 
     //adds event listener on the window load so the system doesn't prematurely try
     //to load the canvas and context.
@@ -55,6 +57,8 @@
       webServer.src = './assets/webServer.png';
       attacker.src = './assets/attacker.png';
       internetDNS.src = './assets/internetDNS.png';
+      poisonedDNS.src = './assets/poisonedDNS.png';
+      maliciousWebsite.src = './assets/maliciousWebsite.png';
 
 
       //loads the first scene
@@ -80,6 +84,8 @@
         sceneTen();
       } else if (currentScene === 11) {
         sceneEleven();
+      } else if (currentScene === 12) {
+        sceneTwelve();
       } else {
         sceneOne();
       }
@@ -805,6 +811,225 @@
 
       //incrementable flag to determine progress through scene
       var subSection = 0;
+
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key === 39) {
+
+          if (subSection === 0) {
+            fadeIn("An attack where user is taken to a different, usually malicious", 100, 150, 20, width);
+            fadeIn("website instead of the one he wanted to visit.", 100, 180, 20, width);
+            subSection++;
+          } else if(subSection === 1) {
+            intervals.forEach(clearInterval);
+            fadeIn("DNS Pharming exploits DNS Cache Poisoning.", 100, 240, 20, width);
+            subSection++;
+          } else if(subSection === 2) {
+            fadeIn("DNS Cache Poisoning is used to do Pharming attack.", 100, 270, 20, width);
+            subSection++;
+          } else if(subSection === 3) {
+            intervals.forEach(clearInterval);
+            fadeIn("If a DNS Server is already poisoned, now if any user requests this ", 100, 350, 20, width);
+            fadeIn("poisoned DNS Server for the IP Address of a website it will send ", 100, 380, 20, width);
+            fadeIn("the Malicious IP Address", 100, 410, 20, width);
+            subSection++;
+          } else if (subSection === 4) {
+            intervals.forEach(clearInterval);
+            ctx.fillStyle = "rgba(0, 0, 0, 1)";
+            ctx.font = "15pt Arial";
+            ctx.fillText("Press the right arrow key to continue", 550, 550);
+            subSection++;
+          } else if (subSection === 5) {
+            intervals.forEach(clearInterval);
+            sceneTwelve();
+          }
+        }
+
+        if (key === 37) {
+          if (subSection === 0) {
+            sceneTen();
+          } else if (subSection === 1) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(100, 110, width, 80);
+            subSection--;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(100, 220, width, 60);
+            subSection--;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(100, 245, width, 60);
+            subSection--;
+          } else if (subSection === 4) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(80, 325, width, height);
+            subSection--;
+          }  else if (subSection === 5) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(80, 500, width, height);
+            subSection--;
+          }
+        }
+
+      }
+
+    }
+
+    function sceneTwelve() {
+      //sets the current scene
+      currentScene = 12;
+
+      //clears canvas
+      ctx.clearRect(0,0,width,height);
+
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
+      ctx.font = "40pt Arial";
+      ctx.fillText("DNS Pharming", 280, 75);
+
+      //incrementable flag to determine progress through scene
+      var subSection = 0;
+
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key === 39) {
+
+          if (subSection === 0) {
+            intervals.forEach(clearInterval);
+            fadeIn("Step 1: User requests for an IP Address of http://maddox.xmission.com", 140, 120, 15, width);
+            ctx.drawImage(user, 50, 450, 100, 100);
+            ctx.drawImage(poisonedDNS, 750, 450, 100, 100);
+            ctx.font = "15pt Arial";
+            ctx.fillText("User", 65, 575);
+            ctx.fillText("Poisoned DNS Server", 700, 575);
+            lineDraw(200, 480, 700, 480);
+            fadeIn("1. User Requests for IP Address of http://maddox.xmission.com", 200, 460, 13, 500);
+            subSection++;
+          } else if(subSection === 1) {
+            intervals.forEach(clearInterval);
+            fadeIn("Step 2: Since the Local DNS Server in now poisoned,", 140, 120, 15, width);
+            fadeIn("it will return the malicious IP Address i.e. IP Address of a malicious website.", 140, 145, 15, width);
+            ctx.drawImage(user, 50, 450, 100, 100);
+            ctx.drawImage(poisonedDNS, 750, 450, 100, 100);
+            ctx.font = "15pt Arial";
+            ctx.fillText("User", 65, 575);
+            ctx.fillText("Poisoned DNS Server", 700, 575);
+            lineDraw(200, 480, 700, 480);
+            fadeIn("2. DNS Server sends back Malicious IP Address 120.34.231.3", 200, 460, 13, 500);
+            subSection++;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 100, width, height);
+            fadeIn("Step 3: After receiving the malicious IP Address the User unintentionally", 140, 120, 15, width);
+            fadeIn("makes an HTTP Request for the Malicious website. ", 140, 145, 15, width);
+            ctx.drawImage(user, 50, 450, 100, 100);
+            ctx.drawImage(poisonedDNS, 750, 450, 100, 100);
+            ctx.drawImage(maliciousWebsite, 400, 150, 100, 100);
+            ctx.font = "15pt Arial";
+            ctx.fillText("User", 65, 575);
+            ctx.fillText("Poisoned DNS Server", 700, 575);
+            ctx.fillText("Malicous Website", 400, 270);
+            lineDraw(130, 420, 390, 200);
+            fadeIn("3. HTTP Request for 120.34.231.3", 40, 250, 13, 275);
+            subSection++
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 100, width, height);
+            fadeIn("Step 4: Then the malicious website will send the HTTP response to the user.", 140, 120, 15, width);
+            ctx.drawImage(user, 50, 450, 100, 100);
+            ctx.drawImage(poisonedDNS, 750, 450, 100, 100);
+            ctx.drawImage(maliciousWebsite, 400, 150, 100, 100);
+            ctx.font = "15pt Arial";
+            ctx.fillText("User", 65, 575);
+            ctx.fillText("Poisoned DNS Server", 700, 575);
+            ctx.fillText("Malicous Website", 400, 270);
+            lineDraw(130, 420, 390, 200);
+            fadeIn("4. HTTP Response", 40, 250, 13, 275);
+            subSection++
+          } else if (subSection === 4) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 100, width, height);
+            fadeIn("Step 5: User have been taken to a malicious IP Address unintentionally. ", 140, 120, 15, width);
+            ctx.drawImage(user, 50, 450, 100, 100);
+            ctx.drawImage(poisonedDNS, 750, 450, 100, 100);
+            ctx.drawImage(maliciousWebsite, 400, 150, 100, 100);
+            ctx.font = "15pt Arial";
+            ctx.fillText("User", 65, 575);
+            ctx.fillText("Poisoned DNS Server", 700, 575);
+            ctx.fillText("Malicous Website", 400, 270);
+            lineDraw(130, 420, 390, 200);
+            fadeIn("5. User will access the", 40, 250, 13, 275);
+            fadeIn("malicious website", 40, 275, 13, 200);
+            subSection++;
+          }
+        }
+
+        if (key === 37) {
+          if (subSection === 0) {
+            sceneEleven();
+          } else if (subSection === 1) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 100, width, height);
+            subSection--;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(100, 100, width, height);
+            fadeIn("Step 1: User requests for an IP Address of http://maddox.xmission.com", 140, 120, 15, width);
+            ctx.drawImage(user, 50, 450, 100, 100);
+            ctx.drawImage(poisonedDNS, 750, 450, 100, 100);
+            ctx.font = "15pt Arial";
+            ctx.fillText("User", 65, 575);
+            ctx.fillText("Poisoned DNS Server", 700, 575);
+            lineDraw(200, 480, 700, 480);
+            fadeIn("1. User Requests for IP Address of http://maddox.xmission.com", 200, 460, 13, 500);
+            subSection--;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 100, width, height);
+            fadeIn("Step 2: Since the Local DNS Server in now poisoned,", 140, 120, 15, width);
+            fadeIn("it will return the malicious IP Address i.e. IP Address of a malicious website.", 140, 145, 15, width);
+            ctx.drawImage(user, 50, 450, 100, 100);
+            ctx.drawImage(poisonedDNS, 750, 450, 100, 100);
+            ctx.font = "15pt Arial";
+            ctx.fillText("User", 65, 575);
+            ctx.fillText("Poisoned DNS Server", 700, 575);
+            lineDraw(200, 480, 700, 480);
+            fadeIn("2. DNS Server sends back Malicious IP Address 120.34.231.3", 200, 460, 13, 500);
+            subSection--;
+          } else if (subSection === 4) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 100, width, height);
+            fadeIn("Step 3: After receiving the malicious IP Address the User unintentionally", 140, 120, 15, width);
+            fadeIn("makes an HTTP Request for the Malicious website. ", 140, 145, 15, width);
+            ctx.drawImage(user, 50, 450, 100, 100);
+            ctx.drawImage(poisonedDNS, 750, 450, 100, 100);
+            ctx.drawImage(maliciousWebsite, 400, 150, 100, 100);
+            ctx.font = "15pt Arial";
+            ctx.fillText("User", 65, 575);
+            ctx.fillText("Poisoned DNS Server", 700, 575);
+            ctx.fillText("Malicous Website", 400, 270);
+            lineDraw(130, 420, 390, 200);
+            fadeIn("3. HTTP Request for 120.34.231.3", 40, 250, 13, 275);
+            subSection--;
+          } else if (subSection === 5) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 100, width, height);
+            fadeIn("Step 4: Then the malicious website will send the HTTP response to the user.", 140, 120, 15, width);
+            ctx.drawImage(user, 50, 450, 100, 100);
+            ctx.drawImage(poisonedDNS, 750, 450, 100, 100);
+            ctx.drawImage(maliciousWebsite, 400, 150, 100, 100);
+            ctx.font = "15pt Arial";
+            ctx.fillText("User", 65, 575);
+            ctx.fillText("Poisoned DNS Server", 700, 575);
+            ctx.fillText("Malicous Website", 400, 270);
+            lineDraw(130, 420, 390, 200);
+            fadeIn("4. HTTP Response", 40, 250, 13, 275);
+            subSection--;
+          }
+        }
+
+      }
 
     }
 
