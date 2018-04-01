@@ -13,7 +13,7 @@
     var height; //canvas height
     var canvas; //the canvas
     var ctx;  //the context
-    var currentScene = 10; //leave uninitialized to start from beginning
+    var currentScene = 11; //leave uninitialized to start from beginning
     var intervals = []; //sets intervals for later clearing
 
     //image variables
@@ -78,6 +78,8 @@
         sceneNine();
       } else if (currentScene === 10) {
         sceneTen();
+      } else if (currentScene === 11) {
+        sceneEleven();
       } else {
         sceneOne();
       }
@@ -684,26 +686,48 @@
             subSection++;
           } else if (subSection === 2) {
             intervals.forEach(clearInterval);
-            restoreDNSPoisoningScene()
+            restoreDNSPoisoningScene();
             lineDraw(750, 500, 500, 250)
             fadeIn("Step 2: If Local DNS Server will not have the IP Address of the requested website,", 125, 100, 13, 675);
             fadeIn("Local DNS Server will query Internet DNS Server for the IP Address. ", 125, 125, 13, 675);
-            fadeIn("2. Local DNS Server will query Internet DNS Server", 550, 250, 11, 675)
-            fadeIn("for the IP Address of http://maddox.xmission.com", 550, 275, 11, 675)
+            fadeIn("2. Local DNS Server will query Internet DNS Server", 550, 250, 11, 675);
+            fadeIn("for the IP Address of http://maddox.xmission.com", 550, 275, 11, 675);
             subSection++;
           } else if (subSection === 3) {
             intervals.forEach(clearInterval);
-            restoreDNSPoisoningScene()
+            restoreDNSPoisoningScene();
             fadeIn("Step 3: After sending the request to Internet DNS Server, ", 125, 90, 13, 675);
             fadeIn("Local DNS Server will wait for response from Internet DNS Server.", 125, 115, 13, 675);
             fadeIn("Here, Attacker will get a chance to flood the Local DNS Server with fake responses.", 125, 140, 13, 675);
             fadeIn("3 b. 166.70.245.8", 600, 300, 13, 675);
             lineDraw(750, 500, 500, 250);
-            fadeIn("3 a.  120.34.231.3", 400, 450, 13, 200);
+            fadeIn("3 a.  120.34.231.3", 375, 460, 13, 200);
             lineDraw(200, 475, 700, 475);
-            fadeIn("3 c.  180.48.155.1", 400, 550, 13, 200);
+            fadeIn("3 c.  180.48.155.1", 375, 550, 13, 200);
             lineDraw(200, 525, 700, 525);
-
+            subSection++;
+          } else if (subSection === 4) {
+            intervals.forEach(clearInterval);
+            restoreDNSPoisoningScene();
+            fadeIn("Step 4: If Local DNS Server is not protected with secured connection,", 125, 90, 13, 675);
+            fadeIn("it can receive the fake/malicious IP Address coming from the Attacker.", 125, 115, 13, 675);
+            lineDraw(200, 480, 700, 480);
+            fadeIn("4. Recieves the fake response 120.34.231.3 coming from the attacker", 175, 460, 13, 600);
+            subSection++;
+          } else if (subSection === 5) {
+            intervals.forEach(clearInterval);
+            restoreDNSPoisoningScene();
+            fadeIn("Step 5. It will send it back to the attacker.", 75, 90, 13, 800);
+            fadeIn("Step 5 a. Also it will update this malicious IP corresponding to the website http://maddox.xmission.com.", 75, 115, 13, 800);
+            fadeIn("Now the Local DNS Server is containing a malicious IP Address, hence it is Poisoned.", 75, 140, 13, 800);
+            lineDraw(200, 480, 700, 480);
+            fadeIn("5. Sends response 120.34.231.3 back to the attacker.", 200, 460, 13, 425);
+            fadeIn("5 a. Updates the IP Address of http://maddox.xmission.com", 500, 350, 11, 675);
+            fadeIn("with malicious IP Address 120.34.231.3 in its directory.", 500, 375, 11, 675);
+            subSection++;
+          } else if (subSection === 6) {
+            intervals.forEach(clearInterval);
+            sceneEleven();
           }
         }
 
@@ -719,12 +743,70 @@
             ctx.clearRect(0,75,width,150);
             ctx.clearRect(200,400,500,150);
             subSection--;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,80,width,height);
+            ctx.drawImage(attacker, 50, 440, 125, 100);
+            ctx.drawImage(localDNS, 750, 440, 125, 100);
+            ctx.font = "15pt Arial";
+            ctx.fillText("Attacker", 70, 590);
+            ctx.fillText("Local DNS", 750, 590);
+            lineDraw(200, 480, 700, 480);
+            fadeIn("1. Resolve IP address of http://maddox.xmission.com", 225, 460, 13, 450);
+            fadeIn("Step 1: Attacker chooses a website and asks Local DNS server for the IP address", 125, 100, 13, 675);
+            fadeIn("For e.g. http://maddox.xmission.com, hoping that it will query Internet DNS Server.", 125, 125, 13, 675);
+            subSection--;
+          } else if (subSection === 4) {
+            intervals.forEach(clearInterval);
+            restoreDNSPoisoningScene();
+            lineDraw(750, 500, 500, 250);
+            fadeIn("Step 2: If Local DNS Server will not have the IP Address of the requested website,", 125, 100, 13, 675);
+            fadeIn("Local DNS Server will query Internet DNS Server for the IP Address. ", 125, 125, 13, 675);
+            fadeIn("2. Local DNS Server will query Internet DNS Server", 550, 250, 11, 675);
+            fadeIn("for the IP Address of http://maddox.xmission.com", 550, 275, 11, 675);
+            subSection--;
+          } else if (subSection === 5) {
+            intervals.forEach(clearInterval);
+            restoreDNSPoisoningScene();
+            fadeIn("Step 3: After sending the request to Internet DNS Server, ", 125, 90, 13, 675);
+            fadeIn("Local DNS Server will wait for response from Internet DNS Server.", 125, 115, 13, 675);
+            fadeIn("Here, Attacker will get a chance to flood the Local DNS Server with fake responses.", 125, 140, 13, 675);
+            fadeIn("3 b. 166.70.245.8", 600, 300, 13, 675);
+            lineDraw(750, 500, 500, 250);
+            fadeIn("3 a.  120.34.231.3", 375, 460, 13, 200);
+            lineDraw(200, 475, 700, 475);
+            fadeIn("3 c.  180.48.155.1", 375, 550, 13, 200);
+            lineDraw(200, 525, 700, 525);
+            subSection--;
+          } else if (subSection === 6) {
+            intervals.forEach(clearInterval);
+            restoreDNSPoisoningScene();
+            fadeIn("Step 4: If Local DNS Server is not protected with secured connection,", 125, 90, 13, 675);
+            fadeIn("it can receive the fake/malicious IP Address coming from the Attacker.", 125, 115, 13, 675);
+            lineDraw(200, 480, 700, 480);
+            fadeIn("4. Recieves the fake response 120.34.231.3 coming from the attacker", 175, 460, 13, 600);
+            subSection--;
           }
         }
 
       }
     }
 
+    function sceneEleven() {
+      //sets the current scene
+      currentScene = 11;
+
+      //clears canvas
+      ctx.clearRect(0,0,width,height);
+
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
+      ctx.font = "40pt Arial";
+      ctx.fillText("DNS Cache Pharming", 180, 75);
+
+      //incrementable flag to determine progress through scene
+      var subSection = 0;
+
+    }
 
     //building animation for text fading in
     function fadeIn(text, x, y, fontSize, textWidth) {
