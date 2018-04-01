@@ -684,19 +684,26 @@
             subSection++;
           } else if (subSection === 2) {
             intervals.forEach(clearInterval);
-            ctx.drawImage(attacker, 50, 440, 125, 100);
-            ctx.drawImage(localDNS, 750, 440, 125, 100);
-            ctx.drawImage(internetDNS, 400, 150, 100, 100);
-            ctx.clearRect(200,400,500,150);
-            ctx.clearRect(0, 75, width, 60);
-            ctx.font = "15pt Arial";
-            ctx.fillText("Attacker", 70, 590);
-            ctx.fillText("Local DNS", 750, 590);
-            ctx.fillText("Internet DNS", 390, 290);
-            lineDraw()
+            restoreDNSPoisoningScene()
+            lineDraw(750, 500, 500, 250)
             fadeIn("Step 2: If Local DNS Server will not have the IP Address of the requested website,", 125, 100, 13, 675);
             fadeIn("Local DNS Server will query Internet DNS Server for the IP Address. ", 125, 125, 13, 675);
+            fadeIn("2. Local DNS Server will query Internet DNS Server", 550, 250, 11, 675)
+            fadeIn("for the IP Address of http://maddox.xmission.com", 550, 275, 11, 675)
             subSection++;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
+            restoreDNSPoisoningScene()
+            fadeIn("Step 3: After sending the request to Internet DNS Server, ", 125, 90, 13, 675);
+            fadeIn("Local DNS Server will wait for response from Internet DNS Server.", 125, 115, 13, 675);
+            fadeIn("Here, Attacker will get a chance to flood the Local DNS Server with fake responses.", 125, 140, 13, 675);
+            fadeIn("3 b. 166.70.245.8", 600, 300, 13, 675);
+            lineDraw(750, 500, 500, 250);
+            fadeIn("3 a.  120.34.231.3", 400, 450, 13, 200);
+            lineDraw(200, 475, 700, 475);
+            fadeIn("3 c.  180.48.155.1", 400, 550, 13, 200);
+            lineDraw(200, 525, 700, 525);
+
           }
         }
 
@@ -857,6 +864,21 @@
       }, 99)
 
       intervals.push(fadeOutImageInterval);
+    }
+
+    function restoreDNSPoisoningScene() {
+      intervals.forEach(clearInterval);
+      ctx.clearRect(0,0,width,height);
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
+      ctx.font = "30pt Arial";
+      ctx.fillText("DNS Cache Poisoning", 250, 50);
+      ctx.drawImage(attacker, 50, 440, 125, 100);
+      ctx.drawImage(localDNS, 750, 440, 125, 100);
+      ctx.drawImage(internetDNS, 400, 150, 100, 100);
+      ctx.font = "15pt Arial";
+      ctx.fillText("Attacker", 70, 590);
+      ctx.fillText("Local DNS", 750, 590);
+      ctx.fillText("Internet DNS", 390, 290);
     }
 
     </script>
