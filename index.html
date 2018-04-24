@@ -29,6 +29,7 @@
     var internetDNS = new Image();
     var poisonedDNS = new Image();
     var maliciousWebsite = new Image();
+    var maliciousResolver = new Image();
 
     //adds event listener on the window load so the system doesn't prematurely try
     //to load the canvas and context.
@@ -59,6 +60,7 @@
       internetDNS.src = './assets/internetDNS.png';
       poisonedDNS.src = './assets/poisonedDNS.png';
       maliciousWebsite.src = './assets/maliciousWebsite.png';
+      maliciousResolver.src= './assets/maliciousResolver.png';
 
 
       //loads the first scene
@@ -1105,10 +1107,14 @@
 
         if(subSection === 0) {
           intervals.forEach(clearInterval);
+          ctx.drawImage(user, 50, 250, 100, 100)
+          ctx.drawImage(maliciousResolver, 700, 150, 100, 150);
+          fadeIn("Victim Machine", 50, 375, 12, 125);
+          fadeIn("Malicious Resolver", 700, 330, 12, 150);
+          fadeIn("(213.109.64.5)", 700, 360, 12, 150);
           subSection++;
         } else if (subSection === 1) {
           intervals.forEach(clearInterval)
-          
           subSection++;
         }
       }
