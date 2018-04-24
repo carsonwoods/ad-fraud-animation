@@ -13,7 +13,7 @@
     var height; //canvas height
     var canvas; //the canvas
     var ctx;  //the context
-    var currentScene = 13; //leave uninitialized to start from beginning
+    var currentScene = 14; //leave uninitialized to start from beginning
     var intervals = []; //sets intervals for later clearing
 
     //image variables
@@ -88,6 +88,8 @@
         sceneTwelve();
       } else if (currentScene === 13) {
         sceneThirteen();
+      } else if (currentScene === 14) {
+        sceneFourteen();
       } else {
         sceneOne();
       }
@@ -1090,8 +1092,8 @@
     ctx.clearRect(0,0,width,height);
 
     ctx.fillStyle = "rgba(0, 0, 0, 1)";
-    ctx.font = "40pt Arial";
-    ctx.fillText("Ad Replacement Attack Example", 75, 75);
+    ctx.font = "30pt Arial";
+    ctx.fillText("Ad Replacement Attack: Operational Flow", 75, 75);
 
     //incrementable flag to determine progress through scene
     var subSection = 0;
@@ -1103,6 +1105,10 @@
 
         if(subSection === 0) {
           intervals.forEach(clearInterval);
+          subSection++;
+        } else if (subSection === 1) {
+          intervals.forEach(clearInterval)
+          
           subSection++;
         }
       }
