@@ -1081,6 +1081,41 @@
     }
   }
 
+
+  function sceneFourteen() {
+    //sets the current scene
+    currentScene = 14;
+
+    //clears canvas
+    ctx.clearRect(0,0,width,height);
+
+    ctx.fillStyle = "rgba(0, 0, 0, 1)";
+    ctx.font = "40pt Arial";
+    ctx.fillText("Ad Replacement Attack Example", 75, 75);
+
+    //incrementable flag to determine progress through scene
+    var subSection = 0;
+
+    window.onkeyup = function(e) {
+      var key = e.keyCode ? e.keyCode : e.which;
+
+      if (key === 39) {
+
+        if(subSection === 0) {
+          intervals.forEach(clearInterval);
+          subSection++;
+        }
+      }
+
+      if (key === 37) {
+        if (subSection === 0) {
+          sceneThirteen();
+        }
+      }
+    }
+  }
+
+
     //building animation for text fading in
     function fadeIn(text, x, y, fontSize, textWidth) {
       var aNumber = 1;
