@@ -30,6 +30,8 @@
     var poisonedDNS = new Image();
     var maliciousWebsite = new Image();
     var maliciousResolver = new Image();
+    var maliciousIP = new Image();
+    var adNetwork = new Image();
 
     //adds event listener on the window load so the system doesn't prematurely try
     //to load the canvas and context.
@@ -61,6 +63,8 @@
       poisonedDNS.src = './assets/poisonedDNS.png';
       maliciousWebsite.src = './assets/maliciousWebsite.png';
       maliciousResolver.src= './assets/maliciousResolver.png';
+      maliciousIP.src = './assets/maliciousIP.png';
+      adNetwork.src = './assets/adNetwork.png';
 
 
       //loads the first scene
@@ -1107,14 +1111,70 @@
 
         if(subSection === 0) {
           intervals.forEach(clearInterval);
-          ctx.drawImage(user, 50, 250, 100, 100)
-          ctx.drawImage(maliciousResolver, 700, 150, 100, 150);
-          fadeIn("Victim Machine", 50, 375, 12, 125);
-          fadeIn("Malicious Resolver", 700, 330, 12, 150);
-          fadeIn("(213.109.64.5)", 700, 360, 12, 150);
+          restoreAdReplacementScene();
+          fadeIn("Step 1.a: Victim machine tries to resolve the IP address of ad.doubleclick.net", 50, 150, 12, 550);
+          fadeIn("Step 1.b: Malicious Resolver mis-resolves this to malicious IP 216.180.243.10", 50, 173, 12, 550);
+          lineDrawDirection(150, 225, 700, 225, 1)
+          fadeIn("1.a Resolve ad.doubleclick.net", 250, 214, 12, 250);
+          lineDrawDirection(150, 250, 700, 250, 0)
+          fadeIn("1.b Malicious resolution 216.180.243.10", 250, 275, 12, 285);
           subSection++;
         } else if (subSection === 1) {
-          intervals.forEach(clearInterval)
+          intervals.forEach(clearInterval);
+          ctx.clearRect(0,100,width,height);
+          restoreAdReplacementScene();
+          fadeIn("Step 2 : The malicious IP serves an iframe to the victim. The iframe directs the victim", 50, 150, 12, 600);
+          fadeIn("to banners.awefulnews.com to serve an ad of the same size as the original ad", 50, 173, 12, 600);
+          lineDrawDirection(150, 400, 700, 400, 0);
+          fadeIn("2. iframe src=http://banners.awefulnews.com/banner.php?size=300*250", 175, 385, 12, 525);
+          subSection++;
+        } else if (subSection === 2) {
+          intervals.forEach(clearInterval);
+          ctx.clearRect(0,100,width,height);
+          restoreAdReplacementScene();
+          fadeIn("Step 3.a: Victim machine tries to resolve the IP address of banners.awefulnews.com", 50, 150, 12, 600);
+          fadeIn("Step 3.b: Malicious Resolver mis-resolves this also to malicious IP 216.180.243.10", 50, 173, 12, 600);
+          fadeIn("in order to look legitimate for an scrutinizing ad network", 50, 190, 12, 550);
+          lineDrawDirection(150, 225, 700, 225, 1)
+          fadeIn("3.a Resolve banners.awefulnews.com", 250, 214, 12, 300);
+          lineDrawDirection(150, 250, 700, 250, 0)
+          fadeIn("3.b Malicious resolution 216.180.243.10", 250, 275, 12, 300);
+          subSection++;
+        } else if (subSection === 3) {
+          intervals.forEach(clearInterval);
+          ctx.clearRect(0,100,width,height);
+          restoreAdReplacementScene();
+          fadeIn("Step 4 : Malicious publisher banners.awefulnews.com will serve an iframe", 50, 150, 12, 600);
+          fadeIn("which loads an ad URL that belongs to a different ad network XtendMedia with", 50, 170, 12, 600);
+          fadeIn("whom attacker have an account ", 50, 190, 12, 550);
+          lineDrawDirection(150, 400, 700, 400, 0);
+          fadeIn("4. iframe src=http://ad.xtendmedia.com/st?ad_type=iframe&ad_size=300", 175, 363, 12, 525);
+          fadeIn("*250&site=1189752&section_code=blind", 175, 385, 12, 525);
+          subSection++;
+        } else if (subSection === 4) {
+          intervals.forEach(clearInterval);
+          ctx.clearRect(0,100,width,height);
+          restoreAdReplacementScene();
+          fadeIn("Step 5.a: Victim machine tries to resolve the IP address of ad.xtendmedia.com", 50, 150, 12, 600);
+          fadeIn("Step 5.b: Malicious Resolver resolves it correctly as the attacker have an account", 50, 173, 12, 600);
+          fadeIn("with this ad network", 50, 190, 12, 550);
+          lineDrawDirection(150, 225, 700, 225, 1)
+          fadeIn("5.a Resolve ad.xtendmedia.com", 250, 214, 12, 300);
+          lineDrawDirection(150, 250, 700, 250, 0)
+          fadeIn("5.b Correct resolution 98.138.49.42", 250, 275, 12, 300);
+          subSection++;
+        } else if (subSection === 5) {
+          intervals.forEach(clearInterval);
+          ctx.clearRect(0,100,width,height);
+          restoreAdReplacementScene();
+          fadeIn("Step 6.a: XtendMedia serves an ad to the victim machine", 50, 150, 12, 600);
+          fadeIn("Step 6.b: Malicious Resolver resolves it correctly. The publisher ID on the displayed", 50, 173, 12, 600);
+          fadeIn("ad URL is one of the attackers IDs with that ad network", 50, 190, 12, 550);
+          lineDrawDirection(150, 525, 700, 525, 1)
+          fadeIn("6.a Advertisement content", 250, 514, 12, 300);
+          lineDrawDirection(150, 550, 700, 550, 0)
+          fadeIn("6.b http://adxtendmedia.com/st?ad_type=iframe&ad_size=300", 175, 575, 12, 500);
+          fadeIn("*250&site=1189752&section_code=blind", 175, 600, 12, 500);
           subSection++;
         }
       }
@@ -1281,6 +1341,21 @@
       ctx.fillText("Attacker", 70, 590);
       ctx.fillText("Local DNS", 750, 590);
       ctx.fillText("Internet DNS", 390, 290);
+    }
+
+    function restoreAdReplacementScene() {
+      intervals.forEach(clearInterval);
+      ctx.drawImage(user, 50, 250, 100, 100)
+      ctx.drawImage(maliciousResolver, 700, 150, 100, 150);
+      ctx.drawImage(maliciousIP, 700, 360, 100, 100);
+      ctx.drawImage(adNetwork, 700, 500, 75, 75);
+      ctx.font = "12pt Arial";
+      ctx.fillText("Victim Machine", 50, 375);
+      ctx.fillText("Malicious Resolver", 700, 330);
+      ctx.fillText("(213.109.64.5)", 700, 360);
+      ctx.fillText("Malicious IP", 775, 450);
+      ctx.fillText("(216.180.243.10)", 775, 490);
+      ctx.fillText("Ad Network", 775, 550);
     }
 
     </script>
