@@ -1182,6 +1182,65 @@
       if (key === 37) {
         if (subSection === 0) {
           sceneThirteen();
+        } else if (subSection === 1) {
+          intervals.forEach(clearInterval);
+          ctx.clearRect(0, 100, width, height);
+          sceneThirteen();
+        } else if (subSection === 2) {
+          intervals.forEach(clearInterval);
+          ctx.clearRect(0, 100, width, height);
+          restoreAdReplacementScene();
+          fadeIn("Step 1.a: Victim machine tries to resolve the IP address of ad.doubleclick.net", 50, 150, 12, 550);
+          fadeIn("Step 1.b: Malicious Resolver mis-resolves this to malicious IP 216.180.243.10", 50, 173, 12, 550);
+          lineDrawDirection(150, 225, 700, 225, 1)
+          fadeIn("1.a Resolve ad.doubleclick.net", 250, 214, 12, 250);
+          lineDrawDirection(150, 250, 700, 250, 0)
+          fadeIn("1.b Malicious resolution 216.180.243.10", 250, 275, 12, 285);
+          subSection--;
+        } else if (subSection === 3) {
+          intervals.forEach(clearInterval);
+          ctx.clearRect(0,100,width,height);
+          restoreAdReplacementScene();
+          fadeIn("Step 2 : The malicious IP serves an iframe to the victim. The iframe directs the victim", 50, 150, 12, 600);
+          fadeIn("to banners.awefulnews.com to serve an ad of the same size as the original ad", 50, 173, 12, 600);
+          lineDrawDirection(150, 400, 700, 400, 0);
+          fadeIn("2. iframe src=http://banners.awefulnews.com/banner.php?size=300*250", 175, 385, 12, 525);
+          subSection--;
+        } else if (subSection === 4) {
+          intervals.forEach(clearInterval);
+          ctx.clearRect(0,100,width,height);
+          restoreAdReplacementScene();
+          fadeIn("Step 3.a: Victim machine tries to resolve the IP address of banners.awefulnews.com", 50, 150, 12, 600);
+          fadeIn("Step 3.b: Malicious Resolver mis-resolves this also to malicious IP 216.180.243.10", 50, 173, 12, 600);
+          fadeIn("in order to look legitimate for an scrutinizing ad network", 50, 190, 12, 550);
+          lineDrawDirection(150, 225, 700, 225, 1)
+          fadeIn("3.a Resolve banners.awefulnews.com", 250, 214, 12, 300);
+          lineDrawDirection(150, 250, 700, 250, 0)
+          fadeIn("3.b Malicious resolution 216.180.243.10", 250, 275, 12, 300);
+          subSection--;
+        } else if (subSection === 5) {
+          intervals.forEach(clearInterval);
+          ctx.clearRect(0,100,width,height);
+          restoreAdReplacementScene();
+          fadeIn("Step 4 : Malicious publisher banners.awefulnews.com will serve an iframe", 50, 150, 12, 600);
+          fadeIn("which loads an ad URL that belongs to a different ad network XtendMedia with", 50, 170, 12, 600);
+          fadeIn("whom attacker have an account ", 50, 190, 12, 550);
+          lineDrawDirection(150, 400, 700, 400, 0);
+          fadeIn("4. iframe src=http://ad.xtendmedia.com/st?ad_type=iframe&ad_size=300", 175, 363, 12, 525);
+          fadeIn("*250&site=1189752&section_code=blind", 175, 385, 12, 525);
+          subSection--;
+        } else if (subSection === 6) {
+          intervals.forEach(clearInterval);
+          ctx.clearRect(0,100,width,height);
+          restoreAdReplacementScene();
+          fadeIn("Step 5.a: Victim machine tries to resolve the IP address of ad.xtendmedia.com", 50, 150, 12, 600);
+          fadeIn("Step 5.b: Malicious Resolver resolves it correctly as the attacker have an account", 50, 173, 12, 600);
+          fadeIn("with this ad network", 50, 190, 12, 550);
+          lineDrawDirection(150, 225, 700, 225, 1)
+          fadeIn("5.a Resolve ad.xtendmedia.com", 250, 214, 12, 300);
+          lineDrawDirection(150, 250, 700, 250, 0)
+          fadeIn("5.b Correct resolution 98.138.49.42", 250, 275, 12, 300);
+          subSection--;
         }
       }
     }
