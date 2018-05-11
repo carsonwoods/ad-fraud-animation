@@ -13,7 +13,7 @@
     var height; //canvas height
     var canvas; //the canvas
     var ctx;  //the context
-    var currentScene = 17 //leave uninitialized to start from beginning
+    var currentScene = 18; //leave uninitialized to start from beginning
     var intervals = []; //sets intervals for later clearing
 
     //image variables
@@ -33,6 +33,9 @@
     var maliciousIP = new Image();
     var adNetwork = new Image();
     var genericServer = new Image();
+    var googleScreenshotOne = new Image();
+    var googleScreenshotTwo = new Image();
+    var nortonScreenshot = new Image();
 
     //adds event listener on the window load so the system doesn't prematurely try
     //to load the canvas and context.
@@ -67,6 +70,9 @@
       maliciousIP.src = './assets/maliciousIP.png';
       adNetwork.src = './assets/adNetwork.png';
       genericServer.src = './assets/maliciousIP.png';
+      googleScreenshotOne.src = './assets/googleScreenshot.png';
+      googleScreenshotTwo.src = './assets/googleScreenshot2.png';
+      nortonScreenshot.src = './assets/nortonScreenshot.png';
 
 
       //loads the first scene
@@ -1441,8 +1447,8 @@
       ctx.clearRect(0,0,width,height);
 
       ctx.fillStyle = "rgba(0, 0, 0, 1)";
-      ctx.font = "35pt Arial";
-      ctx.fillText("Click Hijacking Attack : Participants", 100, 75);
+      ctx.font = "40pt Arial";
+      ctx.fillText("Click Hijacking : Attack Flow", 100, 75);
 
       //incrementable flag to determine progress through scene
       var subSection = 0;
@@ -1454,16 +1460,26 @@
 
           if(subSection === 0) {
             intervals.forEach(clearInterval);
-            fadeIn("Genuine search engine : google.com", 50, 150, 20, width);
-            fadeIn("Fake search engine: accurately-locate.com", 50, 200, 20, width);
-            fadeIn("Genuine Advertising Network : looksmart.com", 50, 250, 20, width);
-            fadeIn("Malicious front-end Website : bulletindaily.com", 50, 300, 20, width);
-            fadeIn("Intermediate Malicious Websites:", 50, 350, 20, width);
-            fadeIn("search2.google.com , search3.google.com, 65.60.9.238", 50, 380, 20, width);
+            restoreClickHijackingScene();
+            fadeIn("Step 1 a : Victim visits google.com, it is resolved correctly by the DNS.", 100, 125, 15, 700);
+            ctx.drawImage(googleScreenshotOne, 500, 200, 300, 300);
+            ctx.drawImage(genericServer, 100, 300, 100, 100);
+            fadeIn("Malicious DNS", 100, 420, 12, 115);
+            lineDrawDirection(200, 350, 500, 350, 0);
             subSection++;
           } else if (subSection === 1) {
             intervals.forEach(clearInterval);
-            sceneEighteen();
+            restoreClickHijackingScene();
+            fadeIn("Step 1 b : Victim enters search term “Download free antivirus”", 100, 125, 15, 700);
+            fadeIn("which returns a set of results", 100, 150, 15, 700);
+            ctx.drawImage(googleScreenshotTwo, 500, 200, 375, 300);
+            ctx.drawImage(genericServer, 100, 300, 100, 100);
+            fadeIn("Malicious DNS", 100, 420, 12, 115);
+            subSection++;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            fadeIn("Step 2 : Victim clicks on organic search result free.avg.com which is also", 100, 125, 15, 700);
+            fadeIn("resolved correctly", 100, 150, 15, 700);
           }
         }
 
@@ -1649,6 +1665,13 @@
       ctx.fillText("Malicious IP", 775, 450);
       ctx.fillText("(216.180.243.10)", 775, 490);
       ctx.fillText("Ad Network", 775, 550);
+    }
+
+    function restoreClickHijackingScene() {
+      intervals.forEach(clearInterval);
+      //needs a clear rect function
+      ctx.rect(500, 200, 375, 300);
+      ctx.stroke();
     }
 
     </script>
