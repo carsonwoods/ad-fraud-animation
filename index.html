@@ -1440,60 +1440,168 @@
     }
 
     function sceneEighteen() {
-      //sets the current scene
-      currentScene = 18;
+        //sets the current scene
+        currentScene = 18;
 
-      //clears canvas
-      ctx.clearRect(0,0,width,height);
+        //clears canvas
+        ctx.clearRect(0,0,width,height);
 
-      ctx.fillStyle = "rgba(0, 0, 0, 1)";
-      ctx.font = "40pt Arial";
-      ctx.fillText("Click Hijacking : Attack Flow", 100, 75);
+        ctx.fillStyle = "rgba(0, 0, 0, 1)";
+        ctx.font = "40pt Arial";
+        ctx.fillText("Click Hijacking : Attack Flow", 100, 75);
 
-      //incrementable flag to determine progress through scene
-      var subSection = 0;
+        //incrementable flag to determine progress through scene
+        var subSection = 0;
+        window.onkeyup = function(e) {
+            var key = e.keyCode ? e.keyCode : e.which;
 
-      window.onkeyup = function(e) {
-        var key = e.keyCode ? e.keyCode : e.which;
+            if (key === 39) {
 
-        if (key === 39) {
+                if(subSection === 0) {
+                    intervals.forEach(clearInterval);
+                    restoreClickHijackingScene();
+                    fadeIn("Step 1 a : Victim visits google.com, it is resolved correctly by the DNS.", 100, 125, 15, 700);
+                    ctx.drawImage(googleScreenshotOne, 500, 200, 300, 300);
+                    ctx.drawImage(genericServer, 100, 300, 100, 100);
+                    ctx.font = "15pt Arial";
+                    ctx.fillText("Malicious DNS", 100, 420);
+                    lineDrawDirection(200, 350, 500, 350, 0);
+                    subSection++;
+                } else if (subSection === 1) {
+                    intervals.forEach(clearInterval);
+                    restoreClickHijackingScene();
+                    fadeIn("Step 1 b : Victim enters search term “Download free antivirus”", 100, 125, 15, 700);
+                    fadeIn("which returns a set of results", 100, 150, 15, 700);
+                    ctx.drawImage(googleScreenshotTwo, 500, 200, 375, 300);
+                    subSection++;
+                } else if (subSection === 2) {
+                    intervals.forEach(clearInterval);
+                    fadeIn("Step 2 : Victim clicks on organic search result free.avg.com which is also", 100, 125, 15, 700);
+                    fadeIn("resolved correctly", 100, 150, 15, 700);
+                    fadeIn("resolved correctly", 250, 335, 15, 175);
+                    subSection++;
+                } else if (subSection === 3) {
+                    intervals.forEach(clearInterval);
+                    ctx.clearRect(0, 100, width, height);
+                    fadeIn("Step 3 : Victim visits free.avg.com which is resolved correctly", 100, 125, 15, 700);
+                    restoreClickHijackingScene();
+                    ctx.drawImage(googleScreenshotTwo, 500, 200, 375, 300);
+                    ctx.drawImage(genericServer, 50, 200, 100, 100);
+                    ctx.drawImage(genericServer, 50, 400, 100, 100);
 
-          if(subSection === 0) {
-            intervals.forEach(clearInterval);
-            restoreClickHijackingScene();
-            fadeIn("Step 1 a : Victim visits google.com, it is resolved correctly by the DNS.", 100, 125, 15, 700);
-            ctx.drawImage(googleScreenshotOne, 500, 200, 300, 300);
-            ctx.drawImage(genericServer, 100, 300, 100, 100);
-            fadeIn("Malicious DNS", 100, 420, 12, 115);
-            lineDrawDirection(200, 350, 500, 350, 0);
-            subSection++;
-          } else if (subSection === 1) {
-            intervals.forEach(clearInterval);
-            restoreClickHijackingScene();
-            fadeIn("Step 1 b : Victim enters search term “Download free antivirus”", 100, 125, 15, 700);
-            fadeIn("which returns a set of results", 100, 150, 15, 700);
-            ctx.drawImage(googleScreenshotTwo, 500, 200, 375, 300);
-            ctx.drawImage(genericServer, 100, 300, 100, 100);
-            fadeIn("Malicious DNS", 100, 420, 12, 115);
-            subSection++;
-          } else if (subSection === 2) {
-            intervals.forEach(clearInterval);
-            fadeIn("Step 2 : Victim clicks on organic search result free.avg.com which is also", 100, 125, 15, 700);
-            fadeIn("resolved correctly", 100, 150, 15, 700);
-          }
+                    ctx.font = "15pt Arial";
+                    ctx.fillText("Malicious DNS", 50, 520);
+                    ctx.fillText("AVG", 75, 320);
+
+                    lineDraw(150, 300, 500, 350);
+
+                    fadeIn("Referrer : Google.com", 220, 400, 12, 275);
+                    fadeIn("Search Term: Download free antivirus", 220, 425, 12, 275);
+                    fadeIn("Intended website: free.avg.com  ", 220, 450, 12, 275);
+                    subSection++;
+                } else if (subSection === 4) {
+                    intervals.forEach(clearInterval);
+                    ctx.clearRect(0, 100, width, height);
+                    restoreClickHijackingScene();
+                    fadeIn("Step 4 : The site free.avg.com attempts to load a Google analytics script ga.js.", 100, 125, 15, 700);
+                    fadeIn("The malicious resolver mis-resolves the host name for this script, www.google-", 100, 150, 15, 700);
+                    fadeIn("analytics.com, to inject a script 123.php into the parent document.", 100, 175, 15, 700);
+
+                    fadeIn("Referrer : Google.com", 540, 525, 12, 275);
+                    fadeIn("Search Term: Download free antivirus", 540, 550, 12, 275);
+                    fadeIn("Intended website: free.avg.com  ", 540, 575, 12, 275);
+
+                    ctx.drawImage(genericServer, 50, 200, 100, 100);
+                    ctx.drawImage(genericServer, 50, 320, 100, 100);
+                    ctx.drawImage(genericServer, 50, 440, 100, 100);
+                    ctx.drawImage(genericServer, 225, 440, 100, 100);
+
+                    ctx.font = "12pt Arial";
+                    ctx.fillText("AVG", 75, 300);
+                    ctx.fillText("Malicious DNS", 50, 430);
+                    ctx.fillText("Google analytics", 50, 540);
+                    ctx.fillText("205.234.201.229", 50, 560);
+                    ctx.fillText("Search2.google.com", 250, 540);
+                    ctx.fillText("67.210.14.53", 250, 560);
+
+                    ctx.beginPath();
+                    ctx.rect(525, 275, 325, 200);
+                    ctx.stroke();
+
+                    ctx.font = "12pt Arial";
+                    ctx.fillText("<script src=“google-analytics/ga.js”>", 540, 250);
+                    ctx.fillText("Import", 540, 350);
+                    ctx.fillText("search2.google.com/123.php?referrer=…", 540, 365);
+
+                    ctx.fillText("Request to DNS to resolve", 200, 275);
+                    ctx.fillText("host name of ga.js", 200, 290);
+
+                    ctx.fillText("correct", 175, 500);
+                    ctx.fillText("Mis-resolves to search2…", 225, 425);
+                    ctx.fillText("which hosts 123.php", 225, 450);
+
+                    lineDraw(160, 400, 500, 250);
+                    lineDraw(160, 400, 160, 500);
+                    lineDraw(160, 400, 240, 500);
+
+                    subSection++;
+                } else if (subSection === 5) {
+                    intervals.forEach(clearInterval);
+                    ctx.clearRect(0, 100, width, height);
+                    restoreClickHijackingScene();
+
+                    fadeIn("Step 5 : The script sends the referrer , www.google.com, search terms entered by ", 100, 125, 15, 720);
+                    fadeIn("the victim, as well as the original site the victim clicked on to another non-existent", 100, 150, 15, 720);
+                    fadeIn("host name, search3.google.com", 100, 175, 15, 720);
+
+                    ctx.beginPath();
+                    ctx.rect(525, 275, 325, 200);
+                    ctx.rect(535, 325, 290, 140);
+                    ctx.stroke();
+
+                    ctx.font = "12pt Arial";
+                    ctx.fillText("<script src=“google-analytics/ga.js”>", 540, 250);
+                    ctx.fillText("Import", 540, 300);
+                    ctx.fillText("search2.google.com/123.php?referrer=…", 540, 315);
+                    ctx.fillText("Import", 540, 360);
+                    ctx.fillText("search3.google.com/?Google+AVG+xxx", 540, 375);
+
+                    ctx.drawImage(genericServer, 50, 200, 100, 100);
+                    ctx.drawImage(genericServer, 50, 320, 100, 100);
+                    ctx.drawImage(genericServer, 50, 500, 100, 100);
+                    ctx.drawImage(genericServer, 325, 500, 100, 100);
+
+                    ctx.font = "12pt Arial";
+                    ctx.fillText("AVG", 75, 300);
+                    ctx.fillText("Malicious DNS", 50, 420);
+                    ctx.fillText("Search2.google.com", 50, 595);
+                    ctx.fillText("Search3.google.com", 350, 595);
+
+                    fadeIn("Referrer : Google.com", 540, 525, 12, 275);
+                    fadeIn("Search Term: Download free antivirus", 540, 550, 12, 275);
+                    fadeIn("Intended website: free.avg.com  ", 540, 575, 12, 275);
+
+                    fadeIn("Passes referrer + search", 150, 515, 12, 190);
+                    fadeIn("term + intended website", 150, 535, 12, 190);
+
+                    lineDraw(100, 430, 100, 510);
+                    lineDraw(130, 550, 345, 550);
+
+                    subSection++;
+                }
+            }
+
+            if (key === 37) {
+                if (subSection === 0) {
+                    intervals.forEach(clearInterval);
+                    sceneSixteen();
+                } else if (subSection === 1) {
+                    intervals.forEach(clearInterval);
+                    ctx.clearRect(0, 100, width, height);
+                    subSection--;
+                }
+            }
         }
-
-        if (key === 37) {
-          if (subSection === 0) {
-            intervals.forEach(clearInterval);
-            sceneSixteen();
-          } else if (subSection === 1) {
-            intervals.forEach(clearInterval);
-            ctx.clearRect(0, 100, width, height);
-            subSection--;
-          }
-        }
-      }
     }
 
 
@@ -1669,6 +1777,7 @@
 
     function restoreClickHijackingScene() {
       intervals.forEach(clearInterval);
+      ctx.beginPath();
       //needs a clear rect function
       ctx.rect(500, 200, 375, 300);
       ctx.stroke();
