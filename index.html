@@ -13,7 +13,7 @@
     var height; //canvas height
     var canvas; //the canvas
     var ctx;  //the context
-    var currentScene = 18; //leave uninitialized to start from beginning
+    var currentScene; //leave uninitialized to start from beginning
     var intervals = []; //sets intervals for later clearing
 
     //image variables
@@ -112,6 +112,16 @@
         sceneSeventeen();
       } else if (currentScene === 18) {
         sceneEighteen();
+      } else if (currentScene === 19) {
+        sceneNineteen();
+      } else if (currentScene === 20) {
+        sceneTwenty();
+      } else if (currentScene === 21) {
+        sceneTwentyOne();
+      } else if (currentScene === 22) {
+        sceneTwentyTwo();
+      } else if (currentScene === 23) {
+        sceneTwentyThree();
       } else {
         sceneOne();
       }
@@ -1606,8 +1616,8 @@
                     ctx.fillText("Malicious DNS", 50, 450);
                     ctx.fillText("Bulletindaily.com", 50, 595);
 
-                    fadeIn("Sent to attacker", 250, 500, 12, 250);
-                    fadeIn("controlled front-end", 250, 525, 12, 250);
+                    fadeIn("Sent to attacker", 250, 500, 12, 240);
+                    fadeIn("controlled front-end", 250, 525, 12, 240);
                     fadeIn("website bulletindaily.com", 250, 550, 12, 250);
                     fadeIn("which is new referrer", 250, 575, 12, 250);
 
@@ -1637,8 +1647,8 @@
                     ctx.fillText("Malicious DNS", 50, 450);
                     ctx.fillText(" Form click IP: 65.60.9.238", 50, 595);
 
-                    fadeIn("Referrer:", 250, 500, 12, 250);
-                    fadeIn("bulletdaily.com", 250, 525, 12, 250);
+                    fadeIn("Referrer:", 250, 500, 12, 240);
+                    fadeIn("bulletdaily.com", 250, 525, 12, 240);
 
                     ctx.fillText("Bulletindaily.com", 530, 190);
                     ctx.fillText("<from action=“65.60.9.238/?param”>", 530, 275);
@@ -1670,10 +1680,10 @@
                     fadeIn("Referrer : bulletdaily.com", 540, 525, 12, 275);
                     fadeIn("Search Term: Download free antivirus", 540, 550, 12, 275);
 
-                    fadeIn("HTTP 302 redirect accurately", 250, 300, 12, 250);
-                    fadeIn("locate.com/?keyword=do", 250, 325, 12, 250);
-                    fadeIn("wnload&itemid", 250, 350, 12, 250);
-                    fadeIn("Refferer=bulletindaily.com", 250, 375, 12, 250);
+                    fadeIn("HTTP 302 redirect accurately", 250, 300, 12, 240);
+                    fadeIn("locate.com/?keyword=do", 250, 325, 12, 240);
+                    fadeIn("wnload&itemid", 250, 350, 12, 240);
+                    fadeIn("Refferer=bulletindaily.com", 250, 375, 12, 240);
 
                     ctx.drawImage(genericServer, 50, 200, 100, 100);
                     ctx.drawImage(genericServer, 50, 320, 100, 100);
@@ -1702,9 +1712,9 @@
                     ctx.drawImage(genericServer, 50, 420, 100, 100);
                     ctx.drawImage(genericServer, 300, 420, 100, 100);
 
-                    fadeIn("HTTP 302 redirect", 250, 360, 12, 250);
-                    fadeIn("/?keyword=download..&itemid", 250, 385, 12, 250);
-                    fadeIn("Refferer=bulletindaily.com", 250, 410, 12, 250);
+                    fadeIn("HTTP 302 redirect", 250, 360, 12, 240);
+                    fadeIn("/?keyword=download..&itemid", 250, 385, 12, 240);
+                    fadeIn("Refferer=bulletindaily.com", 250, 410, 12, 240);
 
                     ctx.font = "12pt Arial";
                     ctx.fillText("Fake search engine", 150, 300);
@@ -1728,6 +1738,7 @@
                     ctx.fillText("Looksmart.com", 50, 545);
                     lineDraw(150, 500, 500, 300)
                     ctx.drawImage(nortonScreenshot, 500, 200, 375, 300);
+                    subSection++;
                     sceneNineteen();
                 }
             }
@@ -1740,10 +1751,548 @@
                     intervals.forEach(clearInterval);
                     ctx.clearRect(0, 100, width, height);
                     subSection--;
+                } else if (subSection === 2) {
+                    intervals.forEach(clearInterval);
+                    ctx.clearRect(0, 100, width, height);
+                    restoreClickHijackingScene();
+                    fadeIn("Step 1 a : Victim visits google.com, it is resolved correctly by the DNS.", 100, 125, 15, 700);
+                    ctx.drawImage(googleScreenshotOne, 500, 200, 300, 300);
+                    ctx.drawImage(genericServer, 100, 300, 100, 100);
+                    ctx.font = "15pt Arial";
+                    ctx.fillText("Malicious DNS", 100, 420);
+                    lineDrawDirection(200, 350, 500, 350, 0);
+                    subSection--;
+                } else if (subSection === 3) {
+                    restoreClickHijackingScene();
+                    fadeIn("Step 1 b : Victim enters search term “Download free antivirus”", 100, 125, 15, 700);
+                    fadeIn("which returns a set of results", 100, 150, 15, 700);
+                    ctx.drawImage(googleScreenshotTwo, 500, 200, 375, 300);
+                    ctx.clearRect(235, 295, 200, 50);
+                    subSection--;
+                } else if (subSection === 4) {
+                    intervals.forEach(clearInterval);
+                    ctx.clearRect(0, 100, width, height);
+                    restoreClickHijackingScene();
+                    fadeIn("Step 2 : Victim clicks on organic search result free.avg.com which is also", 100, 125, 15, 700);
+                    fadeIn("resolved correctly", 100, 150, 15, 700);
+                    fadeIn("resolved correctly", 250, 335, 15, 175);
+                    ctx.drawImage(googleScreenshotOne, 500, 200, 300, 300);
+                    ctx.drawImage(genericServer, 100, 300, 100, 100);
+                    ctx.font = "15pt Arial";
+                    ctx.fillText("Malicious DNS", 100, 420);
+                    lineDrawDirection(200, 350, 500, 350, 0);
+                    subSection--;
+                } else if (subSection === 5) {
+                    intervals.forEach(clearInterval);
+                    ctx.clearRect(0, 100, width, height);
+                    fadeIn("Step 3 : Victim visits free.avg.com which is resolved correctly", 100, 125, 15, 700);
+                    restoreClickHijackingScene();
+                    ctx.drawImage(googleScreenshotTwo, 500, 200, 375, 300);
+                    ctx.drawImage(genericServer, 50, 200, 100, 100);
+                    ctx.drawImage(genericServer, 50, 400, 100, 100);
+
+                    ctx.font = "15pt Arial";
+                    ctx.fillText("Malicious DNS", 50, 520);
+                    ctx.fillText("AVG", 75, 320);
+
+                    lineDraw(150, 300, 500, 350);
+
+                    fadeIn("Referrer : Google.com", 220, 400, 12, 275);
+                    fadeIn("Search Term: Download free antivirus", 220, 425, 12, 275);
+                    fadeIn("Intended website: free.avg.com  ", 220, 450, 12, 275);
+                    subSection--;
+                } else if (subSection === 6) {
+                    intervals.forEach(clearInterval);
+                    ctx.clearRect(0, 100, width, height);
+                    restoreClickHijackingScene();
+                    fadeIn("Step 4 : The site free.avg.com attempts to load a Google analytics script ga.js.", 100, 125, 15, 700);
+                    fadeIn("The malicious resolver mis-resolves the host name for this script, www.google-", 100, 150, 15, 700);
+                    fadeIn("analytics.com, to inject a script 123.php into the parent document.", 100, 175, 15, 700);
+
+                    fadeIn("Referrer : Google.com", 540, 525, 12, 275);
+                    fadeIn("Search Term: Download free antivirus", 540, 550, 12, 275);
+                    fadeIn("Intended website: free.avg.com  ", 540, 575, 12, 275);
+
+                    ctx.drawImage(genericServer, 50, 200, 100, 100);
+                    ctx.drawImage(genericServer, 50, 320, 100, 100);
+                    ctx.drawImage(genericServer, 50, 440, 100, 100);
+                    ctx.drawImage(genericServer, 225, 440, 100, 100);
+
+                    ctx.font = "12pt Arial";
+                    ctx.fillText("AVG", 75, 300);
+                    ctx.fillText("Malicious DNS", 50, 430);
+                    ctx.fillText("Google analytics", 50, 540);
+                    ctx.fillText("205.234.201.229", 50, 560);
+                    ctx.fillText("Search2.google.com", 250, 540);
+                    ctx.fillText("67.210.14.53", 250, 560);
+
+                    ctx.beginPath();
+                    ctx.rect(525, 275, 325, 200);
+                    ctx.stroke();
+
+                    ctx.font = "12pt Arial";
+                    ctx.fillText("<script src=“google-analytics/ga.js”>", 540, 250);
+                    ctx.fillText("Import", 540, 350);
+                    ctx.fillText("search2.google.com/123.php?referrer=…", 540, 365);
+
+                    ctx.fillText("Request to DNS to resolve", 200, 275);
+                    ctx.fillText("host name of ga.js", 200, 290);
+
+                    ctx.fillText("correct", 175, 500);
+                    ctx.fillText("Mis-resolves to search2…", 225, 425);
+                    ctx.fillText("which hosts 123.php", 225, 450);
+
+                    lineDraw(160, 400, 500, 250);
+                    lineDraw(160, 400, 160, 500);
+                    lineDraw(160, 400, 240, 500);
+
+                    subSection--;
+                } else if (subSection === 7) {
+                    intervals.forEach(clearInterval);
+                    ctx.clearRect(0, 100, width, height);
+                    restoreClickHijackingScene();
+
+                    fadeIn("Step 5 : The script sends the referrer , www.google.com, search terms entered by ", 100, 125, 15, 720);
+                    fadeIn("the victim, as well as the original site the victim clicked on to another non-existent", 100, 150, 15, 720);
+                    fadeIn("host name, search3.google.com", 100, 175, 15, 720);
+
+                    ctx.beginPath();
+                    ctx.rect(525, 275, 325, 200);
+                    ctx.rect(535, 325, 290, 140);
+                    ctx.stroke();
+
+                    ctx.font = "12pt Arial";
+                    ctx.fillText("<script src=“google-analytics/ga.js”>", 540, 250);
+                    ctx.fillText("Import", 540, 300);
+                    ctx.fillText("search2.google.com/123.php?referrer=…", 540, 315);
+                    ctx.fillText("Import", 540, 360);
+                    ctx.fillText("search3.google.com/?Google+AVG+xxx", 540, 375);
+
+                    ctx.drawImage(genericServer, 50, 200, 100, 100);
+                    ctx.drawImage(genericServer, 50, 320, 100, 100);
+                    ctx.drawImage(genericServer, 50, 500, 100, 100);
+                    ctx.drawImage(genericServer, 325, 500, 100, 100);
+
+                    ctx.font = "12pt Arial";
+                    ctx.fillText("AVG", 75, 300);
+                    ctx.fillText("Malicious DNS", 50, 420);
+                    ctx.fillText("Search2.google.com", 50, 595);
+                    ctx.fillText("Search3.google.com", 350, 595);
+
+                    fadeIn("Referrer : Google.com", 540, 525, 12, 275);
+                    fadeIn("Search Term: Download free antivirus", 540, 550, 12, 275);
+                    fadeIn("Intended website: free.avg.com  ", 540, 575, 12, 275);
+
+                    fadeIn("Passes referrer + search", 150, 515, 12, 190);
+                    fadeIn("term + intended website", 150, 535, 12, 190);
+
+                    lineDraw(100, 430, 100, 510);
+                    lineDraw(130, 550, 345, 550);
+
+                    subSection--;
+                } else if (subSection === 8) {
+                    intervals.forEach(clearInterval);
+                    ctx.clearRect(0, 100, width, height);
+                    restoreClickHijackingScene();
+
+                    fadeIn("Step 6 : The host search3.google.com has access to referrer site, search terms", 100, 125, 15, 720);
+                    fadeIn("and website victim intended to visit. If referrer is a search engine victim is sent to", 100, 150, 15, 720);
+                    fadeIn("an attacker controlled front-end website bulletindaily.com", 100, 175, 15, 720);
+
+                    ctx.drawImage(genericServer, 50, 200, 100, 100);
+                    ctx.drawImage(genericServer, 50, 350, 100, 100);
+                    ctx.drawImage(genericServer, 50, 500, 100, 100);
+
+                    ctx.font = "12pt Arial";
+                    ctx.fillText("AVG", 75, 300);
+                    ctx.fillText("Malicious DNS", 50, 450);
+                    ctx.fillText("Bulletindaily.com", 50, 595);
+
+                    fadeIn("Sent to attacker", 250, 500, 12, 240);
+                    fadeIn("controlled front-end", 250, 525, 12, 240);
+                    fadeIn("website bulletindaily.com", 250, 550, 12, 240);
+                    fadeIn("which is new referrer", 250, 575, 12, 240);
+
+                    fadeIn("Referrer : bulletdaily.com", 540, 525, 12, 275);
+                    fadeIn("Search Term: Download free antivirus", 540, 550, 12, 275);
+
+                    ctx.fillText("Import", 530, 275);
+                    ctx.fillText("search3.google.com/?Google+AVG+download…", 530, 290);
+                    ctx.fillText("{load bulletindaily.com/?parameter}", 530, 310);
+
+                    lineDraw(500, 300, 150, 550);
+                    subSection--;
+                } else if (subSection === 9) {
+                    intervals.forEach(clearInterval);
+                    ctx.clearRect(0, 100, width, height);
+                    restoreClickHijackingScene();
+
+                    fadeIn("Step 7 : The front-end website bulletindaily.com contains a form to submit search ", 100, 125, 15, 720);
+                    fadeIn("terms to another malicious IP, 65.60.9.238", 100, 150, 15, 720);
+
+                    ctx.drawImage(genericServer, 50, 200, 100, 100);
+                    ctx.drawImage(genericServer, 50, 350, 100, 100);
+                    ctx.drawImage(genericServer, 50, 500, 100, 100);
+
+                    ctx.font = "12pt Arial";
+                    ctx.fillText("AVG", 75, 300);
+                    ctx.fillText("Malicious DNS", 50, 450);
+                    ctx.fillText(" Form click IP: 65.60.9.238", 50, 595);
+
+                    fadeIn("Referrer:", 250, 500, 12, 240);
+                    fadeIn("bulletdaily.com", 250, 525, 12, 240);
+
+                    ctx.fillText("Bulletindaily.com", 530, 190);
+                    ctx.fillText("<from action=“65.60.9.238/?param”>", 530, 275);
+                    ctx.fillText("<script> submit form <script>", 530, 290);
+
+                    lineDraw(500, 300, 150, 550);
+
+                    subSection--;
+                } else if (subSection === 10) {
+                    intervals.forEach(clearInterval);
+                    ctx.clearRect(0, 100, width, height);
+                    restoreClickHijackingScene();
+
+                    fadeIn("Step 8 : The IP, 65.60.9.238, chooses to monetize the click by passing it through", 100, 125, 15, 720);
+                    fadeIn("an affiliated fake search engine, accurately-locate.com, using a 302 redirect", 100, 150, 15, 720);
+
+                    ctx.fillText("Bulletindaily.com", 530, 190);
+                    ctx.fillText("<from action=“65.60.9.238/?param”>", 530, 275);
+                    ctx.fillText("<script> submit form <script>", 530, 290);
+
+                    ctx.font = "12pt Arial";
+                    ctx.fillText("Fake search engine", 25, 300);
+                    ctx.fillText("accurately-locate.com", 25, 315);
+
+                    ctx.fillText("AVG", 50, 450);
+                    ctx.fillText("Malicious DNS", 50, 595);
+                    ctx.fillText("Form click IP: 65.60.9.238", 250, 595);
+
+                    fadeIn("Referrer : bulletdaily.com", 540, 525, 12, 275);
+                    fadeIn("Search Term: Download free antivirus", 540, 550, 12, 275);
+
+                    fadeIn("HTTP 302 redirect accurately", 250, 300, 12, 240);
+                    fadeIn("locate.com/?keyword=do", 250, 325, 12, 240);
+                    fadeIn("wnload&itemid", 250, 350, 12, 240);
+                    fadeIn("Refferer=bulletindaily.com", 250, 375, 12, 240);
+
+                    ctx.drawImage(genericServer, 50, 200, 100, 100);
+                    ctx.drawImage(genericServer, 50, 320, 100, 100);
+                    ctx.drawImage(genericServer, 50, 500, 100, 100);
+                    ctx.drawImage(genericServer, 325, 500, 100, 100);
+
+                    lineDraw(150, 250, 300, 550);
+                    subSection--;
+                } else if (subSection === 11) {
+                    intervals.forEach(clearInterval);
+                    ctx.clearRect(0, 100, width, height);
+                    restoreClickHijackingScene();
+
+                    fadeIn("Step 9 : The fake search engine, accurately-locate.com, has access to the victims", 100, 125, 15, 720);
+                    fadeIn("search terms. It uses them to generate a click on one of its sponsored results", 100, 150, 15, 720);
+                    fadeIn("buy.norton.com which is retrieved from search ad network looksmart.com", 100, 175, 15, 720);
+
+                    ctx.fillText("Bulletindaily.com", 530, 200);
+                    ctx.fillText("<from action=“65.60.9.238/?param”>", 530, 275);
+                    ctx.fillText("<script> submit form <script>", 530, 290);
+
+                    fadeIn("Referrer : bulletdaily.com", 540, 525, 12, 275);
+                    fadeIn("Search Term: Download free antivirus", 540, 550, 12, 275);
+
+                    ctx.drawImage(genericServer, 200, 200, 100, 100);
+                    ctx.drawImage(genericServer, 50, 420, 100, 100);
+                    ctx.drawImage(genericServer, 300, 420, 100, 100);
+
+                    fadeIn("HTTP 302 redirect", 250, 360, 12, 240);
+                    fadeIn("/?keyword=download..&itemid", 250, 385, 12, 240);
+                    fadeIn("Refferer=bulletindaily.com", 250, 410, 12, 240);
+
+                    ctx.font = "12pt Arial";
+                    ctx.fillText("Fake search engine", 150, 300);
+                    ctx.fillText("accurately-locate.com", 150, 315);
+                    ctx.fillText("Search Ad Network", 50, 530);
+                    ctx.fillText("Looksmart.com", 50, 545);
+                    ctx.fillText("Form click IP", 250, 530);
+                    ctx.fillText("65.60.9.238", 250, 545);
+
+                    lineDraw(250, 325, 150, 450);
+                    subSection--;
                 }
             }
         }
     }
+
+    function sceneNineteen() {
+        //sets the current scene
+        currentScene = 19;
+
+        //clears canvas
+        ctx.clearRect(0,0,width,height);
+
+        ctx.fillStyle = "rgba(0, 0, 0, 1)";
+        ctx.font = "40pt Arial";
+        ctx.fillText("Click Hijacking Attack: Impact", 100, 75);
+
+        //incrementable flag to determine progress through scene
+        var subSection = 0;
+
+        window.onkeyup = function(e) {
+          var key = e.keyCode ? e.keyCode : e.which;
+
+          if (key === 39) {
+
+            if (subSection === 0) {
+                intervals.forEach(clearInterval);
+                fadeIn("The attackers defrauded avg.com by stealing its traffic impacting its revenue", 60, 150, 17, width);
+                subSection++;
+            } else if (subSection === 1) {
+                intervals.forEach(clearInterval);
+                fadeIn("Search ad network LookSmart and Norton were defrauded by simulating a click on ", 60, 200, 17, width);
+                fadeIn("Norton’s textual ad and collecting CPC revenue from LookSmart through its affiliate fake search engine.", 60, 230, 17, width);
+                fadeIn("fake search engine.", 60, 260, 17, width);
+                subSection++;
+                sceneTwenty();
+            }
+          }
+
+          if (key === 37) {
+            if (subSection === 0) {
+                intervals.forEach(clearInterval);
+                sceneNineteen();
+            } else if (subSection === 1) {
+                intervals.forEach(clearInterval);
+                ctx.clearRect(0, 100, width, height);
+                subSection--;
+            } else if (subSection === 2) {
+                intervals.forEach(clearInterval);
+                ctx.clearRect(0, 180, width, height);
+                subSection--;
+            }
+          }
+        }
+    }
+
+    function sceneTwenty() {
+        //sets the current scene
+        currentScene = 20;
+
+        //clears canvas
+        ctx.clearRect(0,0,width,height);
+
+        ctx.fillStyle = "rgba(0, 0, 0, 1)";
+        ctx.font = "40pt Arial";
+        ctx.fillText("Ad Fraud Mitigation Techniques", 75, 75);
+
+        //incrementable flag to determine progress through scene
+        var subSection = 0;
+
+        window.onkeyup = function(e) {
+          var key = e.keyCode ? e.keyCode : e.which;
+
+          if (key === 39) {
+
+            if (subSection === 0) {
+                intervals.forEach(clearInterval);
+                fadeIn("Serve Bluff Ads*", 35, 150, 17, width);
+                subSection++;
+            } else if (subSection === 1) {
+                intervals.forEach(clearInterval);
+                fadeIn("A mechanism to detect click activities from a machine or ", 45, 200, 17, width);
+                fadeIn("poorly trained click-fraud workforce", 45, 230, 17, width);
+                fadeIn("In this mechanism, whenever a user (can be genuine, ", 45, 290, 17, width);
+                fadeIn("botnet or click-fraud workforce) visits", 45, 320, 17, width);
+                fadeIn("a publisher page, Ad network serve the user with probability p(i)", 45, 350, 17, width);
+                fadeIn("with ads matching user profile.", 45, 380, 17, width);
+                fadeIn("Serve ads completely unrelated to user profile with probability (1-p(i))", 45, 440, 17, width);
+                fadeIn("For example, serve ads or car sale in Greensboro to an user browsing in India.", 75, 470, 17, width);
+                subSection++;
+                sceneTwentyOne();
+            }
+          }
+
+          if (key === 37) {
+            if (subSection === 0) {
+                intervals.forEach(clearInterval);
+                sceneNineteen();
+            } else if (subSection === 1) {
+                intervals.forEach(clearInterval);
+                ctx.clearRect(0, 100, width, height);
+                subSection--;
+            } else if (subSection === 2) {
+                intervals.forEach(clearInterval);
+                ctx.clearRect(0, 180, width, height);
+                subSection--;
+            }
+          }
+        }
+    }
+
+
+    function sceneTwentyOne() {
+        //sets the current scene
+        currentScene = 21;
+
+        //clears canvas
+        ctx.clearRect(0,0,width,height);
+
+        ctx.fillStyle = "rgba(0, 0, 0, 1)";
+        ctx.font = "40pt Arial";
+        ctx.fillText("Ad Fraud Mitigation Techniques", 75, 75);
+
+        //incrementable flag to determine progress through scene
+        var subSection = 0;
+
+        window.onkeyup = function(e) {
+          var key = e.keyCode ? e.keyCode : e.which;
+
+          if (key === 39) {
+
+            if (subSection === 0) {
+                intervals.forEach(clearInterval);
+                fadeIn("Serve Bluff Ads*", 35, 150, 17, width);
+                subSection++;
+            } else if (subSection === 1) {
+                intervals.forEach(clearInterval);
+                fadeIn("Ad network can monitor the ratio of clicks on bluff ad and real ad.", 45, 230, 17, width);
+                fadeIn("If Bluff/real ratio is higher than average user then it is", 45, 290, 17, width);
+                fadeIn("indicative of botnet or fraud agents are in operation", 45, 320, 17, width);
+                fadeIn("-Fraud agents are just clicking for publishers or against a specific advertiser", 75, 350, 17, width);
+                fadeIn("-Clickbots are automated programs that performs common functions including", 75, 380, 17, width);
+                fadeIn(" HTTP requests to a web server, following redirections and retrieving contents", 75, 410, 17, width);
+                fadeIn(" from a web server", 75, 440, 17, width);
+                fadeIn("Bluff ads should be authentic ads of different advertisers, spread in the network", 45, 500, 17, width);
+                fadeIn("and shown randomly but never charged for.", 45, 530, 17, width);
+                subSection++;
+            } else if (subSection === 2) {
+                intervals.forEach(clearInterval);
+                sceneTwentyTwo();
+            }
+          }
+
+          if (key === 37) {
+            if (subSection === 0) {
+                intervals.forEach(clearInterval);
+                sceneTwenty();
+            } else if (subSection === 1) {
+                intervals.forEach(clearInterval);
+                ctx.clearRect(0, 100, width, height);
+                subSection--;
+            } else if (subSection === 2) {
+                intervals.forEach(clearInterval);
+                ctx.clearRect(0, 180, width, height);
+                subSection--;
+            }
+          }
+        }
+    }
+
+    function sceneTwentyTwo() {
+        //sets the current scene
+        currentScene = 22;
+
+        //clears canvas
+        ctx.clearRect(0,0,width,height);
+
+        ctx.fillStyle = "rgba(0, 0, 0, 1)";
+        ctx.font = "40pt Arial";
+        ctx.fillText("Ad Fraud Mitigation Techniques", 75, 75);
+
+        //incrementable flag to determine progress through scene
+        var subSection = 0;
+
+        window.onkeyup = function(e) {
+          var key = e.keyCode ? e.keyCode : e.which;
+
+          if (key === 39) {
+
+            if (subSection === 0) {
+                intervals.forEach(clearInterval);
+                fadeIn("Threshold based detection*", 35, 150, 17, width);
+                subSection++;
+            } else if (subSection === 1) {
+                intervals.forEach(clearInterval);
+                fadeIn("If a web page is receiving a high number of clicks from", 45, 190, 17, width);
+                fadeIn("the same IP address in a short interval, these clicks can be flagged fraud", 45, 220, 17, width);
+                fadeIn("The detection get complicated if the clickers", 45, 280, 17, width);
+                fadeIn("are  behind proxies or globally distributed", 45, 310, 17, width);
+                fadeIn("In this case, Ad network has to use global IP blacklists and update its list", 45, 380, 17, width);
+                subSection++;
+            } else if (subSection === 2) {
+                intervals.forEach(clearInterval);
+                sceneTwentyThree();
+            }
+          }
+
+          if (key === 37) {
+            if (subSection === 0) {
+                intervals.forEach(clearInterval);
+                sceneTwentyOne();
+            } else if (subSection === 1) {
+                intervals.forEach(clearInterval);
+                ctx.clearRect(0, 100, width, height);
+                subSection--;
+            } else if (subSection === 2) {
+                intervals.forEach(clearInterval);
+                ctx.clearRect(0, 150, width, height);
+                subSection--;
+            }
+          }
+        }
+    }
+
+    function sceneTwentyThree() {
+        //sets the current scene
+        currentScene = 23;
+
+        //clears canvas
+        ctx.clearRect(0,0,width,height);
+        intervals.forEach(clearInterval);
+
+        ctx.fillStyle = "rgba(0, 0, 0, 1)";
+        ctx.font = "40pt Arial";
+        ctx.fillText("Ad Fraud Mitigation Techniques", 75, 75);
+
+        //incrementable flag to determine progress through scene
+        var subSection = 0;
+
+        window.onkeyup = function(e) {
+          var key = e.keyCode ? e.keyCode : e.which;
+
+          if (key === 39) {
+
+            if (subSection === 0) {
+                intervals.forEach(clearInterval);
+                fadeIn("Monitoring and Scrutinizing unexpected DNS resolvers", 35, 150, 17, width);
+                subSection++;
+            } else if (subSection === 1) {
+                intervals.forEach(clearInterval);
+                fadeIn("-One of the major attributes of Ad replacement and click ", 45, 190, 17, width);
+                fadeIn(" hijacking attack is incorrect reconfiguration of victim’s", 45, 220, 17, width);
+                fadeIn(" DNS resolver settings to attacker-controlled machines", 45, 250, 17, width);
+                fadeIn("-Internet Service Providers (ISPs) can monitor DNS requests and responses", 45, 310, 17, width);
+                fadeIn(" traversing their organizational borders to find unexpected DNS resolvers", 45, 340, 17, width);
+                subSection++;
+            }
+          }
+
+          if (key === 37) {
+            if (subSection === 0) {
+                intervals.forEach(clearInterval);
+                sceneTwentyTwo();
+            } else if (subSection === 1) {
+                intervals.forEach(clearInterval);
+                ctx.clearRect(0, 100, width, height);
+                subSection--;
+            } else if (subSection === 2) {
+                intervals.forEach(clearInterval);
+                ctx.clearRect(0, 160, width, height);
+                subSection--;
+            }
+          }
+        }
+    }
+
 
 
     //building animation for text fading in
