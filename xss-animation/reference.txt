@@ -1,0 +1,26 @@
+mc = function (e) {
+    var key = e.keyCode ? e.keyCode : e.which;
+
+    if (key == 39) {
+        console.log('checkclicked');
+        document.body.style.cursor = "default";
+        window.removeEventListener('click', arguments.callee, false);
+        window.removeEventListener('mousemove', mv, false);
+        playIntro();
+        //mel_scene_3();
+    }
+}
+
+
+//old function for reference
+mc = function (e) {
+    mouseX = e.pageX - theCanvas.offsetLeft;
+    mouseY = e.pageY - theCanvas.offsetTop;
+    if (btnPlay_sub.checkClicked()) {
+        console.log('checkclicked');
+        document.body.style.cursor = "default";
+        window.removeEventListener('click', mc, false);
+        window.removeEventListener('mousemove', mv, false);
+        bobscene_6();
+    }
+}

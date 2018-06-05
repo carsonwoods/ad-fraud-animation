@@ -1,0 +1,55 @@
+
+<html>
+<head>
+<title>InterSecVis: CrossSite Sripting (XSS)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="css/xss.css" />
+<script type="application/javascript" src="js/src_xss.js"></script>
+</head>
+<body>
+<div id="middle">
+<nav>
+    <ul>
+        <li>
+            <a href="#">SCENE</a>
+            <ul>
+                <li>
+                    <a href="#" onclick="goTo(1)">INTRODUCTION</a>
+                </li>
+                <li>
+                    <a href="#" onclick="goTo(2)">SELLER BOB</a>
+                </li>
+                <li>
+                    <a href="#" onclick="goTo(3)">HACKER MEL</a>
+                </li>
+                <li>
+                    <a href="#" onclick="goTo(4)">SCRIPT DETAIL</a>
+                </li>
+                <li>
+                    <a href="#" onclick="goTo(5)">BUYER ALICE</a>
+                </li>
+                <li>
+                    <a href="#" onclick="goTo(6)">EXPLOITATION 1</a>
+                </li>
+                <li>
+                    <a href="#" onclick="goTo(7)">EXPLOITATION 2</a>
+                </li>
+                <li>
+                    <a href="#" onclick="goTo(8)">COUNTERMEASURE</a>
+                </li>
+                <li>
+                    <a href="#" onclick="goTo(9)">SUMMARY</a>
+                </li>
+            </ul>
+        </li>
+        <li>
+            <a href="quiz.html">QUIZ</a>
+        </li>
+    </ul>
+</nav>
+<canvas id="icanvas" height="600" width="800" >
+<p>If you are reading this, then you browser does not support HTML 5</p>
+</canvas>
+</div>
+</body>
+</html>
