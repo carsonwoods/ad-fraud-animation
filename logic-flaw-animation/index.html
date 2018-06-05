@@ -1,0 +1,938 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta author="Carson Woods">
+    <title>Logic Flaw</title>
+    <link rel="stylesheet" href="css/main.css">
+
+    <script type="application/javascript">
+
+    //Global Variables
+    var width; //canvas width
+    var height; //canvas height
+    var canvas; //the canvas
+    var ctx;  //the context
+    var currentScene; //leave uninitialized to start from beginning
+    var intervals = []; //sets intervals for later clearing
+
+    //image variables
+    var store = new Image();
+    var person = new Image();
+    var paypal = new Image();
+    var block = new Image();
+
+    //adds event listener on the window load so the system doesn't prematurely try
+    //to load the canvas and context.
+    window.addEventListener('load', eventWindowLoaded, false);
+
+    function eventWindowLoaded() {
+      //sets canvas and context based on the DOM element Canvas
+      canvas = document.getElementById('canvas')
+      ctx = canvas.getContext('2d');
+      width = canvas.width;
+      height = canvas.height;
+    }
+
+    function init() {
+
+      //load assets for images from CDN.
+      //Note: Local storage is possible but behaves poorly when running from dev console
+      store.src = './assets/store.png';
+      person.src = './assets/person.png';
+      block.src = './assets/block.png';
+      paypal.src = './assets/paypal.png';
+
+
+
+      //loads the first scene
+      if (currentScene === 1) {
+        sceneOne();
+      } else if (currentScene === 2) {
+        sceneTwo();
+      } else if (currentScene === 3) {
+        sceneThree();
+      } else if (currentScene === 4) {
+        sceneFour();
+      } else if (currentScene === 5) {
+        sceneFive();
+      } else if (currentScene === 6) {
+        sceneSix();
+      } else {
+        sceneOne();
+      }
+
+    }
+
+    function sceneOne() {
+      //sets the current scene
+      currentScene = 1;
+
+      //clears any previous drawings
+      ctx.clearRect(0,0,width,height);
+
+      //sets font and font size for the following text
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
+      ctx.font = "40pt Arial";
+      ctx.fillText("Logic Flaw", 300, 200);
+      ctx.fillText("An Interactive Demo", 200, 450);
+      var sceneOneTimer = setInterval(function(){
+        fadeIn("Use the arrow keys to continue", 250, 300, 20, width);
+        clearInterval(sceneOneTimer);
+      }, 2000)
+      intervals.push(sceneOneTimer);
+
+      //tests for next scene input key
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key == 39) {
+          intervals.forEach(clearInterval);
+          sceneTwo();
+        }
+
+      }
+
+    }
+
+
+
+    function sceneTwo() {
+      //sets the current scene
+      currentScene = 2;
+
+      //clears canvas
+      ctx.clearRect(0,0,width,height);
+
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
+      ctx.font = "50pt Arial";
+      ctx.fillText("Logic Flaw Example", 150, 75);
+
+      //incrementable flag to determine progress through scene
+      var subSection = 0;
+
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key === 39) {
+
+          if (subSection === 0) {
+            fadeIn("What is the Flaw???", 220, 150, 40, width);
+            subSection++;
+          } else if(subSection === 1) {
+            fadeIn("A flaw in the API that sends data between Interspire and Paypal Express", 140, 220, 15, width);
+            subSection++;
+          } else if(subSection === 2) {
+            fadeIn("This flaw allows persons to pay for an order at a much lower cost than advertised.", 100, 250, 15, width);
+            subSection++;
+          } else if(subSection === 3) {
+            fadeIn("What is Interspire/PayPal Express?", 80, 350, 35, width);
+            subSection++;
+          } else if (subSection === 4) {
+            fadeIn("Interspire is an online commerce software for managing online marketplaces.", 120, 380, 15, width);
+            fadeIn("PayPal Express processes payments and integrates with Interspire", 155, 405, 15, width);
+            subSection++;
+          } else if (subSection === 5) {
+            ctx.fillStyle = "rgba(0, 0, 0, 1)";
+            ctx.font = "15pt Arial";
+            ctx.fillText("Press the right arrow key to continue", 550, 550);
+            subSection++;
+          } else if (subSection === 6) {
+            intervals.forEach(clearInterval);
+            sceneThree();
+          }
+        }
+
+        if (key === 37) {
+          if (subSection === 0) {
+            sceneOne();
+          } else if (subSection === 1) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(220, 110, width, 45);
+            subSection--;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(140, 205, width, 20);
+            subSection--;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(100, 235, width, 20);
+            subSection--;
+          } else if (subSection === 4) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(80, 315, width, 45);
+            subSection--;
+          } else if (subSection === 5) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(120, 360, width, 50);
+            subSection--;
+          } else if (subSection === 6) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(550, 510, 400, 50);
+            subSection--;
+          }
+        }
+
+      }
+    }
+
+    function sceneThree() {
+      currentScene = 3;
+
+      //clears current frame
+      ctx.clearRect(0,0,width,height);
+
+      //incrementable flag to determine progress through scene
+      var subSection = 1;
+      ctx.font = "30pt Arial";
+      ctx.fillText("1. Create Cheap Order (First Session)", 125, 40);
+      ctx.lineWidth = 3;
+      var yValue = 100;
+      ctx.drawImage(person, 0, 60, 60, 40);
+      ctx.drawImage(store, (width/2)-20, 60, 40, 40);
+      ctx.drawImage(paypal, width-50, 60, 40, 40);
+      for (var x = 0; x < 12; x++) {
+        lineDraw(30, yValue, 30, yValue+20);
+        lineDraw(width/2, yValue, width/2, yValue+20);
+        lineDraw(width-30, yValue, width-30, yValue+20);
+        yValue+=40;
+      }
+
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key === 39) {
+
+          if (subSection === 1) {
+            restoreSceneThree();
+            lineDrawDirection(30, 130, width/2, 130, 1);
+            fadeIn("1.a Attacker adds cheap items to cart", 40, 115, 10, 225)
+            subSection++;
+          } else if (subSection === 2) {
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "35pt Arial";
+            ctx.fillText("2. Checkout Cheap Order", 150, 40);
+            lineDrawDirection(30, 170, width/2, 170, 1);
+            fadeIn("store.com/checkout?price&PayPalExpress", 40, 155, 10, 260);
+            subSection++;
+          } else if (subSection === 3) {
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("2.a During Checkout: Store Gets PayPal Token", 110, 40);
+            lineDrawDirection(width/2, 180, width-30, 180, 1);
+            fadeIn("PayPal.com/setExpressCheckout?StoreID", width/2+5, 165, 10, 260);
+            subSection++;
+          } else if (subSection === 4) {
+            lineDrawDirection(width/2, 220, width-30, 220, 0);
+            fadeIn("token", width/2+20, 205, 10, 50);
+            subSection++;
+          } else if (subSection === 5) {
+            lineDrawDirection(30, 230, width/2, 230, 0);
+            fadeIn("Redirect to: PayPal.com/pay?token&payerID", 45, 215, 10, 280);
+            subSection++;
+          } else if (subSection === 6) {
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("3. Store Redirects to PayPal. Attacker Makes Payment", 50, 40);
+            lineDrawDirection(30, 265, width-30, 265, 1);
+            fadeIn("PayPal.com/pay?token&payerID", 60, 250, 10, 250);
+            subSection++;
+          } else if (subSection === 7) {
+            lineDrawDirection(30, 305, width-30, 305, 0);
+            fadeIn("Redirect to: store.com/finishOrder?token&payerID&sessionID", 45, 290, 10, 400);
+            subSection++;
+          } else if (subSection === 8) {
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("4. PayPal Redirects to Store. Store Creates Order", 80, 40);
+            lineDrawDirection(30, 340, width/2, 340, 1);
+            fadeIn("store.com/finishOrder?token&payerID&sessionID", 45, 325, 10, 290);
+            subSection++;
+          } else if (subSection === 9) {
+            lineDrawDirection(width/2, 355, width-30, 355, 1);
+            fadeIn("PayPal.com/setExpressCheckout?StoreID", width/2+5, 340, 10, 260);
+            subSection++;
+          } else if (subSection === 10) {
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("4.a Store Checks if Payment was Made", 150, 40);
+            lineDrawDirection(width/2, 390, width-30, 390, 0);
+            fadeIn("result", (width/2)+25, 375, 10, 100);
+            subSection++;
+          } else if (subSection === 11) {
+            lineDrawDirection(30, 430, width/2, 430, 0);
+            fadeIn("Redirect to: store.com/updateOrderStatus?(ORDERID)=0&sessionID=0", 45, 415, 9, 400);
+            subSection++;
+          } else if (subSection === 12) {
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("5. Store Redirects to Update Order Status ", 140, 40);
+            lineDrawDirection(30, 515, width/2, 515, 1);
+            fadeIn("store.com/updateOrderStatus?(ORDERID)=0&session=0", 50, 500, 10, 350);
+            subSection++;
+          } else if (subSection === 13) {
+            ctx.font = "10pt Arial";
+            ctx.fillText("Attacker now has session from cheap order stored", 465, 515);
+            ctx.fillText("with successful payment results ", 525, 535);
+            ctx.fillText("Attacker stops the redirect from loading ", 130, 565);
+            ctx.fillText("(can intercept with a proxy to do this)", 130, 585);
+            imageFadeIn(block, 180, 480, 50, 50);
+            subSection++;
+          } else if (subSection === 14) {
+            ctx.fillText("Press the Right Arrow to Continue", 430, 590);
+            subSection++;
+          } else if (subSection === 15) {
+            intervals.forEach(clearInterval);
+            sceneFour();
+          }
+        }
+
+        if (key === 37) {
+          if (subSection === 0) {
+            intervals.forEach(clearInterval);
+            sceneTwo();
+          } else if (subSection === 1) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,0,width,height);
+            restoreSceneThree();
+            subSection--;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(33, 100, (width/2)-35, 50);
+            ctx.clearRect(30, 127, 5, 5);
+            ctx.clearRect(width/2-5, 127, 5, 5)
+            subSection--;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "30pt Arial";
+            ctx.fillText("1. Create Cheap Order (First Session)", 125, 40);
+            ctx.clearRect(33, 145, (width/2)-35, 50);
+            ctx.clearRect(30, 168, 5, 5);
+            ctx.clearRect(width/2-5, 168, 5, 5);
+            subSection--;
+          } else if (subSection === 4) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 0, width, 50);
+            ctx.font = "35pt Arial";
+            ctx.fillText("2. Checkout Cheap Order", 150, 40);
+            ctx.clearRect((width/2)+3, 145, (width/2)-35, 50);
+            ctx.clearRect((width/2)+1, 177, 5, 5);
+            subSection--;
+          } else if (subSection === 5) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect((width/2)+3, 195, (width/2)-35, 50);
+            ctx.clearRect((width/2)+1, 218, 5, 5);
+            subSection--;
+          } else if (subSection === 6) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(31, 200, (width/2)-33, 50);
+            subSection--;
+          } else if (subSection === 7) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,0,width,50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("2.a During Checkout: Store Gets PayPal Token", 100, 40);
+            ctx.clearRect(50, 240, 250, 20)
+            ctx.clearRect(0, 250, width, 50);
+            restoreSceneThree();
+            subSection--;
+          } else if (subSection === 8) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(50, 270, 250, 20)
+            ctx.clearRect(0, 280, width, 50);
+            restoreSceneThree();
+            subSection--;
+          } else if (subSection === 9) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,0,width,50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("3. Store Redirects to PayPal. Attacker Makes Payment", 50, 40);
+            ctx.clearRect(45, 310, 300, 20)
+            ctx.clearRect(0, 320, width, 50);
+            restoreSceneThree();
+            subSection--;
+          } else if (subSection === 10) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect((width/2), 320, (width/2)-30, 50);
+            restoreSceneThree();
+            subSection--;
+          } else if (subSection === 11) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,0,width,50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("4. PayPal Redirects to Store. Store Creates Order", 50, 40);
+            ctx.clearRect((width/2), 360, 250, 50);
+            ctx.clearRect((width/2), 370, (width/2)-30, 50);
+            restoreSceneThree();
+            subSection--;
+          } else if (subSection === 12) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(30, 400, (width/2)-30, 50)
+            restoreSceneThree();
+            subSection--;
+          } else if (subSection === 13) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(30, 490, width/2, 50)
+            ctx.clearRect(0,0,width,50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("4.a Store Checks if Payment was Made", 150, 40);
+            restoreSceneThree();
+            subSection--;
+          } else if (subSection === 14) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 480, width, height);
+            lineDrawDirection(30, 515, width/2, 515, 1);
+            ctx.fillText("store.com/updateOrderStatus?(ORDERID)=0&session=0", 50, 500);
+            restoreSceneThree();
+            subSection--;
+          } else if (subSection === 15) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect((width/2)-50, 580, 300, 50);
+            subSection--;
+          }
+        }
+
+
+      }
+    }
+
+    function sceneFour() {
+      currentScene = 4;
+
+      //clears current frame
+      ctx.clearRect(0,0,width,height);
+      ctx.font = "25pt Arial";
+      ctx.fillText("7. Checkout Expensive Order", 225, 40);
+      ctx.lineWidth = 3;
+      var yValue = 100;
+      ctx.drawImage(person, 0, 60, 60, 40);
+      ctx.drawImage(store, (width/2)-20, 60, 40, 40);
+      ctx.drawImage(paypal, width-50, 60, 40, 40);
+      for (var x = 0; x < 12; x++) {
+        lineDraw(30, yValue, 30, yValue+20);
+        lineDraw(width/2, yValue, width/2, yValue+20);
+        lineDraw(width-30, yValue, width-30, yValue+20);
+        yValue+=40;
+      }
+
+
+      var subSection = 0;
+
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key === 39) {
+
+          if (subSection === 0) {
+            ctx.drawImage(person, 0, 60, 60, 40);
+            ctx.drawImage(store, (width/2)-20, 60, 40, 40);
+            ctx.drawImage(paypal, width-50, 60, 40, 40);
+            fadeIn("store.com/updateOrderStatus?(ORDERID)=0&session=0", 50, 100, 10, 350);
+            lineDrawDirection(30, 113, width/2, 113, 1);
+            subSection++;
+          } else if (subSection === 1) {
+            fadeIn("Attacker adds expensive items to cart", 50, 130, 10, 350);
+            lineDrawDirection(30, 150, width/2, 150, 1);
+            subSection++;
+          } else if (subSection === 2) {
+            fadeIn("store.com/checkout?price&PayPalExpress", 50, 170, 10, 350);
+            lineDrawDirection(30, 185, width/2, 185, 1);
+            subSection++;
+          } else if (subSection === 3) {
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("7.a During Checkout: Store Gets PayPal Token", 90, 40);
+            fadeIn("PayPal.com/setExpressCheckout?StoreID", 470, 185, 10, 350);
+            lineDrawDirection(width/2, 200, width-30, 200, 1);
+            subSection++;
+          } else if (subSection === 4) {
+            fadeIn("token", 470, 220, 10, 350);
+            lineDrawDirection(width/2, 235, width-30, 235, 0);
+            subSection++;
+          } else if (subSection === 5) {
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("8. Store Redirects to PayPal. Attacker Skips Payment", 50, 40);
+            fadeIn("Redirect to : PayPal.com/pay?token&payerID", 50, 250, 10, 350);
+            lineDrawDirection(30, 265, width/2, 265, 0);
+            subSection++
+          } else if (subSection === 6) {
+            lineDrawDirection(30, 305, width-30, 305, 1);
+            fadeIn("PayPal.com/pay?token&payerID", 50, 290, 10, 350);
+            ctx.font = "20pt Arial";
+            ctx.fillText("Attacker Skips Payment", (width/2)+40, 330);
+            subSection++;
+          } else if (subSection === 7) {
+            ctx.clearRect(475, 310, 300, 30);
+            fadeIn("Redirect to: store.com/finishOrder?token&payerID&sessionID", width/2+10, 325, 10, 380);
+            lineDrawDirection(30, 345, width-30, 345, 0);
+            subSection++;
+          } else if (subSection === 8) {
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("9. PayPal Redirects to Store. Store Still Creates Order", 50, 40);
+            fadeIn("store.com/finishOrder?token&payerID&sessionID", 50, 365, 10, 380);
+            lineDrawDirection(30, 380, width/2, 380, 1);
+            subSection++;
+          } else if (subSection === 9) {
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("9.a Store Checks if Payment was Made", 150, 40);
+            fadeIn("PayPal.com/doExpressPayment?StoreID&payerID", (width/2)+30, 370, 10, 350);
+            lineDrawDirection(width/2, 390, width-30, 390, 1);
+            subSection++;
+          } else if (subSection === 10) {
+            fadeIn("result (payment failed)", (width/2)+30, 415, 10, 350);
+            lineDrawDirection(width/2, 430, width-30, 430, 0);
+            subSection++;
+          } else if (subSection === 11) {
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("10. Store Redirects to Update Order Status", 130, 40);
+            fadeIn(" Redirect to: store.com/updateOrderStatus?(ORDERID)=1&sessionID=1", 50, 435, 9, 385);
+            lineDrawDirection(30, 450, width/2, 450, 0);
+            subSection++;
+          } else if (subSection === 12) {
+            fadeIn("store.com/updateOrderStatus?(ORDERID)=1&sessionID=1", 50, 470, 10, 385);
+            lineDrawDirection(30, 485, width/2, 485, 1);
+            ctx.font = "10pt Arial";
+            ctx.fillText("Order not filled because payment verification failed", 50, 500);
+            ctx.fillText("Attacker still gets signed (ORDERID) with", 50, 520);
+            ctx.fillText("information about the expensive order", 50, 532);
+            subSection++
+          } else if (subSection === 13) {
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "22pt Arial";
+            ctx.fillText("11. Attacker Updates First Session with Second ORDERID", 70, 40);
+            fadeIn("store.com/updateOrderStatus?(ORDERID)=1&sessionID=0", 50, 555, 10, 385);
+            lineDrawDirection(30, 570, width/2, 570, 1);
+            subSection++;
+          } else if (subSection === 14) {
+            ctx.font = "10pt Arial";
+            ctx.fillText("Attacker returns to first session with stored successful payment result,", (width/2)+10, 500);
+            ctx.fillText("where they stopped the final webpage from loading", (width/2)+10, 511);
+
+            ctx.fillText("Attacker replaces the first signed ORDERID with the second signed", (width/2)+10, 530);
+            ctx.fillText("ORDERID by copying and pasting the value in the URL", (width/2)+10, 541);
+            ctx.fillText("Then the attacker loads the webpage", (width/2)+10, 552);
+            subSection++;
+          } else if (subSection === 15) {
+            intervals.forEach(clearInterval);
+            sceneFive();
+          }
+        }
+
+        if (key === 37) {
+          if (subSection === 0) {
+            intervals.forEach(clearInterval);
+            sceneThree();
+          } else if (subSection === 1) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(50, 80, 350, 25);
+            ctx.clearRect(30, 98, (width/2)-30, 50);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(50, 115, 350, 25);
+            ctx.clearRect(30, 135, (width/2)-30, 50);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(50, 155, 350, 25);
+            ctx.clearRect(30, 165, (width/2)-30, 50);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 4) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,0,width,50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("7. Checkout Expensive Order", 225, 40);
+            ctx.clearRect(width/2, 165, 350, 25);
+            ctx.clearRect(width/2, 175, (width/2)-30, 50);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 5) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(width/2, 205, 350, 25);
+            ctx.clearRect(width/2, 215, (width/2)-30, 50);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 6) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,0,width,50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("7.a During Checkout: Store Gets PayPal Token", 90, 40);
+            ctx.clearRect(30, 235, 350, 25);
+            ctx.clearRect(30, 245, (width/2)-30, 50);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 7) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(50, 270, 350, 25);
+            ctx.clearRect(30, 280, width, 70);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 8) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(50, 310, 350, 25);
+            ctx.clearRect(30, 310, width, 70);
+            ctx.font = "20pt Arial";
+            ctx.fillText("Attacker Skips Payment", (width/2)+40, 330);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 9) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,0,width,50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("8. Store Redirects to PayPal. Attacker Skips Payment", 50, 40);
+            ctx.clearRect(50, 350, 350, 25);
+            ctx.clearRect(30, 360, (width/2)-30, 50);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 10) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,0,width,50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("9. PayPal Redirects to Store. Store Still Creates Order", 50, 40);
+            ctx.clearRect(width/2, 360, 350, 25);
+            ctx.clearRect(width/2, 370, (width/2)-30, 50);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 11) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(width/2, 395, 350, 25);
+            ctx.clearRect(width/2, 405, (width/2)-30, 50);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 12) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,0,width,50);
+            ctx.font = "25pt Arial";
+            ctx.fillText("9.a Store Checks if Payment was Made", 150, 40);
+            ctx.clearRect(50, 415, 350, 25);
+            ctx.clearRect(30, 425, (width/2)-30, 50);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 13) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(50, 455, 350, 25);
+            ctx.clearRect(30, 470, (width/2)-30, 70);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 14) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0,0,width, 50);
+            ctx.font = "22pt Arial";
+            ctx.fillText("10. Store Redirects to Update Order Status", 130, 40);
+            ctx.clearRect(0, 535, width, 200);
+            restoreSceneFour();
+            subSection--;
+          } else if (subSection === 15) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(width/2, 490, width/2, 400);
+            restoreSceneFour();
+            subSection--;
+          }
+        }
+      }
+    }
+
+    function sceneFive() {
+      //sets the current scene
+      currentScene = 5;
+      var subSection = 0;
+
+      //clears current frame
+      ctx.clearRect(0,0,width,height);
+
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
+      ctx.font = "40pt Arial";
+      ctx.fillText("Countermeasures", 225, 50);
+
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key === 39) {
+
+          if (subSection === 0) {
+            fadeIn("What can be done?", 325, 140, 20, width);
+            subSection++;
+          } else if (subSection === 1) {
+            fadeIn("Interspire should link OrderIDs to SessionIDs. That way a order can't be filled from a separate session.", 50, 180, 13, width);
+            subSection++;
+          } else if (subSection === 2) {
+            fadeIn("When Payment fails a valid OrderID should not be created.", 225, 210, 13, width);
+            subSection++;
+          } else if (subSection === 3) {
+            fadeIn("Interspire should verify the payment amount matches the total of the order it is filling", 130, 240, 13, width);
+            subSection++;
+          } else if (subSection === 4) {
+            fadeIn("Press the Right Arrow Key to continue", 230, 400, 20, width);
+            subSection++;
+          } else if (subSection === 5) {
+            intervals.forEach(clearInterval);
+            sceneSix();
+          }
+        }
+
+        if (key === 37) {
+
+          if (subSection === 0) {
+            intervals.forEach(clearInterval);
+            sceneFour();
+          } else if (subSection === 1) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 120, width, 30);
+            subSection--;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 155, width, 30);
+            subSection--;
+          } else if (subSection === 3) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 190, width, 30);
+            subSection--;
+          } else if (subSection === 4) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 220, width, 30);
+            subSection--;
+          } else if (subSection === 5) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 300, width, height);
+            subSection--;
+          }
+        }
+
+      }
+    }
+
+    function sceneSix() {
+      //sets the current scene
+      currentScene = 6;
+      var subSection = 0;
+
+      //clears current frame
+      ctx.clearRect(0,0,width,height);
+
+      ctx.fillStyle = "rgba(0, 0, 0, 1)";
+      ctx.font = "40pt Arial";
+      ctx.fillText("Summary", 325, 50);
+
+      window.onkeyup = function(e) {
+        var key = e.keyCode ? e.keyCode : e.which;
+
+        if (key === 39) {
+
+          if (subSection === 0) {
+            fadeIn("A flaw in the API between Interspire and Paypal allows you to pay less for things.", 100, 150, 15, width);
+            subSection++;
+          } else if (subSection === 1) {
+            fadeIn("By switching valid OrderIDs between sessions it fullfills wrong orders.", 150, 180, 15, width);
+            subSection++;
+          }
+        }
+
+        if (key === 37) {
+          if (subSection === 0) {
+            intervals.forEach(clearInterval);
+            sceneFive();
+          } else if (subSection === 1) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 125, width, 30);
+            subSection--;
+          } else if (subSection === 2) {
+            intervals.forEach(clearInterval);
+            ctx.clearRect(0, 160, width, 30);
+            subSection--;
+          }
+         }
+      }
+    }
+
+    //building animation for text fading in
+    function fadeIn(text, x, y, fontSize, textWidth) {
+      var aNumber = 1;
+      var alpha = 0.0;
+      fadeInInterval = setInterval(function () {
+        ctx.clearRect(x, y-fontSize-5, textWidth, fontSize+15); // Clears the canvas
+        ctx.fillStyle = "rgba(0, 0, 0, " + alpha + ")";
+        ctx.font = fontSize + "pt Arial";
+        ctx.fillText(text, x, y);
+        alpha = alpha + 0.05; // increase opacity (fade in)
+
+        if (alpha > 1) {
+          clearInterval(fadeInInterval);
+        }
+      }, 70);
+      intervals.push(fadeInInterval);
+    }
+
+    //text fade out animation
+    function fadeOut(text, x, y, fontSize, textWidth) {
+      var alpha = 1.0;   // full opacity
+      fadeOutInterval = setInterval(function () {
+        ctx.clearRect(x, y-fontSize-5, textWidth, fontSize+15); // Clears the canvas
+        ctx.fillStyle = "rgba(0, 0, 0, " + alpha + ")";
+        ctx.font = fontSize + "pt Arial";
+        ctx.fillText(text, x, y);
+        alpha = alpha - 0.05; // decrease opacity (fade out)
+        if (alpha < 0) {
+          ctx.clearRect(x, y-fontSize-5, textWidth, fontSize+15);
+          clearInterval(fadeOutInterval);
+        }
+      }, 100);
+
+      intervals.push(fadeOutInterval);
+    }
+
+    function lineDraw(startX, startY, endX, endY) {
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(endX, endY);
+      ctx.stroke();
+    }
+
+    //give direction 0 if left and direction 1 if right
+    function lineDrawDirection(startX, startY, endX, endY, direction) {
+      //draws the line
+      ctx.beginPath();
+      ctx.moveTo(startX, startY);
+      ctx.lineTo(endX, endY);
+      ctx.stroke();
+
+      //draws the triangle part of the arrow
+      if (direction == 0) {
+        ctx.beginPath();
+        ctx.moveTo(startX, startY);
+        ctx.lineTo(startX+15, startY-15);
+        ctx.lineTo(startX+15, startY+15);
+        ctx.fill();
+      } else if (direction == 1) {
+        ctx.beginPath();
+        ctx.moveTo(endX, endY);
+        ctx.lineTo(endX-15, startY-15);
+        ctx.lineTo(endX-15, startY+15);
+        ctx.fill();
+      }
+    }
+
+    //this is a long function that I think can be abstracted later but I don't
+    //want to deal with that right now so here it is
+    function moveImage(image, startX, startY, endX, endY, imageWidth, imageHeight) {
+
+      var currentX = startX;
+      var currentY = startY;
+
+      moveTimer = setInterval(function() {
+        //I added +/- 1 because in some cases it wasn't completely clearing the old image
+        ctx.clearRect(currentX-1, currentY-1, imageWidth+1, imageHeight+1);
+        ctx.drawImage(image, currentX, currentY, imageWidth, imageHeight);
+
+        if (endX > currentX) {
+          currentX++;
+        } else if(endX < currentX) {
+          currentX--;
+        }
+
+        if (endY > currentY) {
+          currentY++;
+        } else if(endY < currentY) {
+          currentY--;
+        }
+
+        if (currentX === endX && currentY === endY) {
+          clearInterval(moveTimer);
+        }
+
+      }, 6)
+      intervals.push(moveTimer);
+    }
+
+    //fades in images
+    function imageFadeIn(image, x, y, w, h) {
+      var alpha = 0.0;
+
+      fadeInImageInterval = setInterval(function() {
+        ctx.clearRect(x-1, y-1, w+1, h+1);
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(image, x, y, w, h);
+        alpha += .05;
+
+        if (alpha > 1) {
+          //resets globalAlpha
+          ctx.globalAlpha = 1;
+          clearInterval(fadeInImageInterval);
+        }
+
+      }, 99)
+
+      intervals.push(fadeInImageInterval);
+    }
+
+    function imageFadeOut(image, x, y, w, h) {
+      var alpha = 1.0;
+      ctx.drawImage(image, x, y, w, h);
+      fadeOutImageInterval = setInterval(function() {
+        ctx.clearRect(x-1, y-1, w+1, h+1);
+        ctx.globalAlpha = alpha;
+        ctx.drawImage(image, x, y, w, h);
+        alpha -= .05;
+
+        if (alpha < 0) {
+          ctx.globalAlpha = 1;
+          ctx.clearRect(x-1, y-1, w+1, h+1);
+          clearInterval(fadeOutImageInterval);
+        }
+
+      }, 99)
+
+      intervals.push(fadeOutImageInterval);
+    }
+
+    function restoreSceneThree() {
+      //this function restores the continuity of the scene if it is irrevocable damaged
+      //this will probably not be used a lot but will make the process look much more professional
+
+      ctx.drawImage(person, 0, 60, 60, 40);
+      ctx.drawImage(store, (width/2)-20, 60, 40, 40);
+      ctx.drawImage(paypal, width-50, 60, 40, 40);
+
+      ctx.lineWidth = 3;
+      var yValue = 100;
+
+      for (var x = 0; x < 12; x++) {
+        lineDraw(30, yValue, 30, yValue+20);
+        lineDraw(width/2, yValue, width/2, yValue+20);
+        lineDraw(width-30, yValue, width-30, yValue+20);
+        yValue+=40;
+      }
+    }
+
+    function restoreSceneFour() {
+      //this function restores the continuity of the scene if it is irrevocable damaged
+      //this will probably not be used a lot but will make the process look much more professional
+
+      ctx.lineWidth = 3;
+      var yValue = 100;
+
+      for (var x = 0; x < 12; x++) {
+        lineDraw(30, yValue, 30, yValue+20);
+        lineDraw(width/2, yValue, width/2, yValue+20);
+        lineDraw(width-30, yValue, width-30, yValue+20);
+        yValue+=40;
+      }
+    }
+
+    </script>
+  </head>
+
+  <body onLoad="init();">
+    <button type="button" onclick="window.location.href = './quiz.html'">Take Quiz</button>
+    <div id="canvas-div">
+      <canvas id="canvas" width="900" height="600"></canvas>
+    </div>
+  </body>
+</html>
