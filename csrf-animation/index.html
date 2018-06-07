@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>CrossSite Request Forgery (CSRF)</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="css/csrf.css" />
+        <script type="application/javascript" src="js/src_csrf.js"></script>
+    </head>
+
+<body>
+    <div id="middle">
+    <nav>
+        <ul>
+            <li><a href="#">SCENE</a></li>
+                <ul>
+                    <li><a href="#" onclick="goTo(1)">INTRO</a></li>
+                    <li><a href="#" onclick="goTo(2)">ALICE</a></li>
+                    <li><a href="#" onclick="goTo(3)">MEL</a></li>
+                    <li><a href="#" onclick="goTo(4)">ATTACK</a></li>
+                    <li><a href="#" onclick="goTo(5)">COUNTERMEASURES</a></li>
+                </ul>
+            <li><a href="quiz.html">QUIZ</a></li>
+        </ul>
+    </nav>
+
+        <canvas id="icanvas" height="600" width="800" >
+            <p>If you are reading this, then you browser does not support HTML 5</p>
+        </canvas>
+    </div>
+</body>
+</html>
