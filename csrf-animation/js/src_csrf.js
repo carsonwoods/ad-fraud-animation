@@ -88,7 +88,7 @@ function goTo(s)
 {
     if (state == 1) {
         console.log(mc + " mc value");
-        window.removeEventListener('click', mc, false);
+        window.removeEventListener('keyup', mc, false);
         window.removeEventListener('mousemove', mv, false);
     }
     if (state == 0) {
@@ -173,13 +173,12 @@ function loadintial() {
     }
     //event listener mouse click
     mc = function (e) {
-        mouseX = e.pageX - theCanvas.offsetLeft;
-        mouseY = e.pageY - theCanvas.offsetTop;
-        if (btnPlay.checkClicked())
+        var key = e.keyCode ? e.keyCode : e.which;
+        if (key == 39)
         {
             console.log('checkclicked');
             document.body.style.cursor = "default";
-            window.removeEventListener('click', arguments.callee, false);
+            window.removeEventListener('keyup', arguments.callee, false);
             window.removeEventListener('mousemove', mv, false);
             playIntro();
         }
@@ -188,7 +187,7 @@ function loadintial() {
 
     var btnPlay = new Button(cwidth / 2 - play.width / 2, cwidth / 2 + play.width / 2, cheight / 2 - play.height / 2, cheight / 2 + play.height / 2);
     state = 1;
-    window.addEventListener('click', mc, false);
+    window.addEventListener('keyup', mc, false);
     window.addEventListener('mousemove', mv, false);
 }
 
@@ -767,7 +766,7 @@ function xss_bob()
             if (cframe > 290) {
                 context.font = "25px serif";
                 context.fillStyle = 'red';
-                var t_message = "Click on Alice's computer to Continue....";
+                var t_message = "Press the right arrow key to Continue....";
                 context.fillText(t_message, 50, 250);
             }
             cframe++;
@@ -780,12 +779,11 @@ function xss_bob()
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_comp.checkClicked()) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39) {
                 console.log('checkclicked');
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 bobscene_2();
             }
@@ -805,7 +803,7 @@ function xss_bob()
         }
 
         var btnPlay_comp = new Button(200, 290, 365, 440);
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
@@ -1037,7 +1035,7 @@ function bobscene_2() {
         if (cframe > 299) {
             context.font = "25px serif";
             context.fillStyle = 'red';
-            var t_message = "Click on the Server to Continue....";
+            var t_message = "Press the right arrow key to Continue....";
             context.fillText(t_message, 50, 250);
         }
         cframe++;
@@ -1049,12 +1047,11 @@ function bobscene_2() {
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_server.checkClicked()) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39) {
                 console.log('checkclicked');
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 bobscene_3();
             }
@@ -1073,7 +1070,7 @@ function bobscene_2() {
             }
         }
         var btnPlay_server = new Button(650, 745, 400, 550);
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
@@ -1352,7 +1349,7 @@ function bobscene_3() {
         if (cframe > 650) {
             context.font = "25px serif";
             context.fillStyle = 'red';
-            var t_message = "Click on Alice's computer to continue...";
+            var t_message = "Press the right arrow key to continue...";
             context.fillText(t_message, 50, 250);
         }
         cframe++;
@@ -1363,12 +1360,11 @@ function bobscene_3() {
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_c2.checkClicked()) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39) {
                 console.log('checkclicked');
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 bobscene_4();
             }
@@ -1387,7 +1383,7 @@ function bobscene_3() {
             }
         }
         var btnPlay_c2 = new Button(200, 290, 365, 440);
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
@@ -1477,7 +1473,7 @@ function bobscene_4() {
         if (cframe >= 145) {
             context.font = "25px serif";
             context.fillStyle = 'red';
-            var t_message = "Click on LOGIN button to continue";
+            var t_message = "Press the right arrow key to continue";
             context.fillText(t_message, 190, 450);
         }
         cframe++;
@@ -1488,13 +1484,12 @@ function bobscene_4() {
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_ne.checkClicked())
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39)
             {
                 console.log('checkclicked');
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 bobscene_5();
             }
@@ -1515,7 +1510,7 @@ function bobscene_4() {
         }
         var btnPlay_ne = new Button(280, 520, 350, 420);
         state = 1;
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
@@ -1605,7 +1600,7 @@ function bobscene_5()
         if (cframe > 185) {
             context.font = "25px serif";
             context.fillStyle = 'red';
-            var t_message = "Click on Submit to continue...";
+            var t_message = "Press the right arrow key to continue...";
             context.fillText(t_message, 210, 450);
         }
         cframe++;
@@ -1617,11 +1612,10 @@ function bobscene_5()
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_sub.checkClicked()) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39) {
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 bobscene_6();
             }
@@ -1641,7 +1635,7 @@ function bobscene_5()
         }
         var btnPlay_sub = new Button(280, 520, 350, 420);
         state = 1;
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
@@ -1900,7 +1894,7 @@ function mel_scene_1() {
         if (cframe > 330) {
             context.font = "25px serif";
             context.fillStyle = 'red';
-            var t_message = "Click on Mel's computer to continue....";
+            var t_message = "Press the right arrow key to continue....";
             context.fillText(t_message, 50, 250);
         }
         cframe++;
@@ -1911,12 +1905,11 @@ function mel_scene_1() {
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_c2.checkClicked()) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39) {
                 console.log('checkclicked');
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 mel_scene_2();
             }
@@ -1935,7 +1928,7 @@ function mel_scene_1() {
             }
         }
         var btnPlay_c2 = new Button(190, 280, 390, 460);
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
@@ -2001,7 +1994,7 @@ function mel_scene_2()
         if (cframe >= 190) {
             context.font = "25px serif";
             context.fillStyle = 'red';
-            var t_message = "Click on SUBMIT to continue";
+            var t_message = "Press the right arrow key to continue";
             context.fillText(t_message, 200, 450);
         }
         cframe++;
@@ -2012,12 +2005,11 @@ function mel_scene_2()
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_c2.checkClicked()) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39) {
                 console.log('checkclicked');
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 mel_scene_3();
             }
@@ -2036,7 +2028,7 @@ function mel_scene_2()
             }
         }
         var btnPlay_c2 = new Button(280, 520, 350, 420);
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
@@ -2132,7 +2124,7 @@ function mel_scene_3() {
         if (cframe >= 410) {
             context.font = "25px serif";
             context.fillStyle = 'red';
-            var t_message = "Click on Mel's computer to continue...";
+            var t_message = "Press the right arrow key to continue...";
             context.fillText(t_message, 180, 250);
         }
         cframe++;
@@ -2143,12 +2135,11 @@ function mel_scene_3() {
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_c2.checkClicked()) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39) {
                 console.log('checkclicked');
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 mel_scene_4();
             }
@@ -2167,7 +2158,7 @@ function mel_scene_3() {
             }
         }
         var btnPlay_c2 = new Button(190, 280, 390, 460);
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
@@ -2566,12 +2557,11 @@ function mel_scene_5() {
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_c2.checkClicked()) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39) {
                 console.log('checkclicked');
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 alice_scene_1();
             }
@@ -2590,7 +2580,7 @@ function mel_scene_5() {
             }
         }
         var btnPlay_c2 = new Button(335, 465, 405, 428);
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
@@ -2670,12 +2660,11 @@ function alice_scene_1() {
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_sub.checkClicked()) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39) {
                 console.log('checkclicked');
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 mel_scene_4();
             }
@@ -2695,7 +2684,7 @@ function alice_scene_1() {
         }
         var btnPlay_sub = new Button(190, 280, 390, 460);
         state = 1;
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
@@ -2743,7 +2732,7 @@ function alice_scene_2() {
         if (cframe > 120) {
             context.font = "25px serif";
             context.fillStyle = 'red';
-            var t_message = "Click on the PICTURE in the email";
+            var t_message = "Press the right arrow key to continue";
             context.fillText(t_message, 180, 475);
 
         }
@@ -2756,12 +2745,11 @@ function alice_scene_2() {
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_sub.checkClicked()) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39) {
                 console.log('checkclicked');
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 alice_scene_3();
             }
@@ -2781,7 +2769,7 @@ function alice_scene_2() {
         }
         var btnPlay_sub = new Button(300, 475, 150, 550);
         state = 1;
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
@@ -2995,7 +2983,7 @@ function alice_scene_3() {
         if (cframe > 325) {
             context.font = "25px serif";
             context.fillStyle = 'red';
-            var t_message = "Click on server to continue";
+            var t_message = "Press the right arrow key to continue";
             context.fillText(t_message, 180, 250);
         }
         cframe++;
@@ -3005,12 +2993,11 @@ function alice_scene_3() {
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_sub.checkClicked()) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39) {
                 console.log('checkclicked');
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 alice_scene_5();
             }
@@ -3030,7 +3017,7 @@ function alice_scene_3() {
         }
         var btnPlay_sub = new Button(660, 740, 390, 530);
         state = 1;
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
@@ -3122,7 +3109,7 @@ function alice_scene_5() {
         if (cframe >= 240) {
             context.font = "25px serif";
             context.fillStyle = 'red';
-            var t_message = "Click on Alice's Computer to continue...";
+            var t_message = "Press the right arrow key to continue...";
             context.fillText(t_message, 125, 360);
         }
         cframe++;
@@ -3132,12 +3119,11 @@ function alice_scene_5() {
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_sub.checkClicked()) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39) {
                 console.log('checkclicked');
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 alice_scene_6();
             }
@@ -3157,7 +3143,7 @@ function alice_scene_5() {
         }
         var btnPlay_sub = new Button(160, 230, 410, 470);
         state = 1;
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
@@ -3314,12 +3300,11 @@ function countermeasure() {
         var m2;
         var change = false;
         mc = function (e) {
-            mouseX = e.pageX - theCanvas.offsetLeft;
-            mouseY = e.pageY - theCanvas.offsetTop;
-            if (btnPlay_sub.checkClicked()) {
+            var key = e.keyCode ? e.keyCode : e.which;
+            if (key == 39) {
                 console.log('checkclicked');
                 document.body.style.cursor = "default";
-                window.removeEventListener('click', mc, false);
+                window.removeEventListener('keyup', mc, false);
                 window.removeEventListener('mousemove', mv, false);
                 summary_scene();
             }
@@ -3339,7 +3324,7 @@ function countermeasure() {
         }
         var btnPlay_sub = new Button(335, 465, 405, 428);
         state = 1;
-        window.addEventListener('click', mc, false);
+        window.addEventListener('keyup', mc, false);
         window.addEventListener('mousemove', mv, false);
     }
 }
